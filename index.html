@@ -1,4 +1,4 @@
-# 分你一口 點餐區
+ 分你一口 點餐區
 
 <form id="orderForm">
   <div>
@@ -111,8 +111,11 @@
     // 傳送資料到 Google Sheets API
     fetch('https://script.google.com/macros/s/AKfycbydjXkbSXa8ZAO6wsBOH-YS44babk3HYc5G9PyRe5jbja2F4XlD0DBrOKWXpeo7Pt0H/exec', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(orderData)
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(orderData),
+      mode: 'no-cors'
     })
     .then(response => response.json())
     .then(data => {
