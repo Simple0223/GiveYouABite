@@ -22,11 +22,11 @@
   </div>
   <div>
     <label for="chestnut-layer-fruit">原味千層 (NT$ 120)：</label>
-    <input type="number" id="chestnut-layer-fruit" name="chestnut-layer-fruit" min="0" value="0" onchange="calculateTotal()">
+    <input type="number" id="chestnut-layer-original" name="chestnut-layer-fruit" min="0" value="0" onchange="calculateTotal()">
   </div>
   <div>
     <label for="chestnut-layer-original">水果千層 (NT$ 130)：</label>
-    <input type="number" id="chestnut-layer-original" name="chestnut-layer-original" min="0" value="0" onchange="calculateTotal()">
+    <input type="number" id="chestnut-layer-fruit" name="chestnut-layer-original" min="0" value="0" onchange="calculateTotal()">
   </div>
   <div>
     <label for="chestnut-layer-chocolate">巧克力千層 (NT$ 130)：</label>
@@ -61,9 +61,9 @@
     // 定義品項和價格
     const items = [
       { name: '提拉米蘇', price: 150, quantity: document.getElementById('tiramisu').value },
-      { name: '千層-水果', price: 120, quantity: document.getElementById('chestnut-layer-fruit').value },
-      { name: '千層-原味', price: 120, quantity: document.getElementById('chestnut-layer-original').value },
-      { name: '千層-巧克力', price: 130, quantity: document.getElementById('chestnut-layer-chocolate').value },
+      { name: '原味千層', price: 120, quantity: document.getElementById('chestnut-layer-original').value },
+      { name: '水果千層', price: 120, quantity: document.getElementById('chestnut-layer-fruit').value },
+      { name: '巧克力千層', price: 130, quantity: document.getElementById('chestnut-layer-chocolate').value },
       { name: '經典起司', price: 180, quantity: document.getElementById('classic-cheese').value },
       { name: '巴斯克', price: 200, quantity: document.getElementById('bask').value },
       { name: '檸檬塔', price: 160, quantity: document.getElementById('lemon-tart').value },
@@ -91,9 +91,9 @@
     // 定義品項和價格
     const items = [
       { name: '提拉米蘇', price: 150, quantity: document.getElementById('tiramisu').value },
-      { name: '千層-水果', price: 120, quantity: document.getElementById('chestnut-layer-fruit').value },
-      { name: '千層-原味', price: 120, quantity: document.getElementById('chestnut-layer-original').value },
-      { name: '千層-巧克力', price: 130, quantity: document.getElementById('chestnut-layer-chocolate').value },
+      { name: '原味千層', price: 120, quantity: document.getElementById('chestnut-layer-original').value },
+      { name: '水果千層', price: 120, quantity: document.getElementById('chestnut-layer-fruit').value },
+      { name: '巧克力千層', price: 130, quantity: document.getElementById('chestnut-layer-chocolate').value },
       { name: '經典起司', price: 180, quantity: document.getElementById('classic-cheese').value },
       { name: '巴斯克', price: 200, quantity: document.getElementById('bask').value },
       { name: '檸檬塔', price: 160, quantity: document.getElementById('lemon-tart').value },
