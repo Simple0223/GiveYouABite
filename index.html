@@ -1,4 +1,4 @@
- 分你一口 點餐區
+ ＃分你一口 點餐區
 
 <form id="orderForm">
   <div>
@@ -112,16 +112,21 @@
     fetch('https://script.google.com/macros/s/AKfycbydjXkbSXa8ZAO6wsBOH-YS44babk3HYc5G9PyRe5jbja2F4XlD0DBrOKWXpeo7Pt0H/exec', {
       method: 'POST',
       headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(orderData)
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(orderData)
     })
     .then(response => response.json())
     .then(data => {
-    if (data.status === 'success') {
-      document.getElementById('status').innerText = '訂單已成功提交！';
-    } else {
-      document.getElementById('status').innerText = '訂單提交失敗，請再試一次。';
-    }
-  })
+      if (data.status === 'success') {
+        document.getElementById('status').innerText = '訂單已成功提交！';
+      } else {
+        document.getElementById('status').innerText = '訂單提交失敗，請再試一次。';
+      }
+    })
+    .catch(error => {
+      console.error('錯誤:', error);
+      document.getElementById('status').innerText = '提交失敗，請稍後再試。';
+    });
+  });
 </script>
