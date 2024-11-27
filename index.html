@@ -2,19 +2,34 @@
 
 <form id="orderForm">
   <div>
+    <label for="customerName">顧客姓名：</label>
+    <input type="text" id="customerName" name="customerName" required><br><br>
+  </div>
+  
+  <div>
+    <label for="phone">電話：</label>
+    <input type="tel" id="phone" name="phone" required><br><br>
+  </div>
+
+  <div>
+    <label for="address">地址：</label>
+    <input type="text" id="address" name="address" required><br><br>
+  </div>
+
+  <div>
     <label for="tiramisu">提拉米蘇 (NT$ 150)：</label>
     <input type="number" id="tiramisu" name="tiramisu" min="0" value="0">
   </div>
   <div>
-    <label for="chestnut-layer-fruit">千層 - 水果 (NT$ 120)：</label>
+    <label for="chestnut-layer-fruit">原味千層 (NT$ 120)：</label>
     <input type="number" id="chestnut-layer-fruit" name="chestnut-layer-fruit" min="0" value="0">
   </div>
   <div>
-    <label for="chestnut-layer-original">千層 - 原味 (NT$ 120)：</label>
+    <label for="chestnut-layer-original">水果千層 (NT$ 130)：</label>
     <input type="number" id="chestnut-layer-original" name="chestnut-layer-original" min="0" value="0">
   </div>
   <div>
-    <label for="chestnut-layer-chocolate">千層 - 巧克力 (NT$ 130)：</label>
+    <label for="chestnut-layer-chocolate">巧克力千層 (NT$ 130)：</label>
     <input type="number" id="chestnut-layer-chocolate" name="chestnut-layer-chocolate" min="0" value="0">
   </div>
   <div>
@@ -41,7 +56,9 @@
 
     // 收集表單資料
     const orderId = Math.random().toString(36).substr(2, 9); // 隨機生成訂單編號
-    const customerName = prompt('請輸入顧客姓名：');
+    const customerName = document.getElementById('customerName').value;
+    const phone = document.getElementById('phone').value;
+    const address = document.getElementById('address').value;
 
     // 定義品項和價格
     const items = [
@@ -61,7 +78,7 @@
     });
 
     // 建立訂單資料
-    const orderData = { orderId, customerName, items, totalAmount };
+    const orderData = { orderId, customerName, phone, address, items, totalAmount };
 
     // 傳送資料到 Google Sheets API
     fetch('你的Web App URL', {
