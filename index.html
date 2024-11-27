@@ -1,0 +1,52 @@
+# 點餐系統
+
+<form id="orderForm">
+  <label for="customerName">顧客姓名：</label>
+  <input type="text" id="customerName" name="customerName" required><br><br>
+
+  <label for="meal">餐點：</label>
+  <select id="meal" name="meal">
+    <option value="pizza">披薩</option>
+    <option value="burger">漢堡</option>
+    <option value="sushi">壽司</option>
+  </select><br><br>
+
+  <label for="quantity">數量：</label>
+  <input type="number" id="quantity" name="quantity" min="1" required><br><br>
+
+  <button type="submit">送出訂單</button>
+</form>
+
+<div id="status"></div>
+
+<script>
+  document.getElementById('orderForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // 收集表單資料
+    const orderId = Math.random().toString(36).substr(2, 9); // 隨機生成訂單編號
+    const customerName = document.getElementById('customerName').value;
+    const meal = document.getElementById('meal').value;
+    const quantity = document.getElementById('quantity').value;
+    const amount = quantity * 100; // 假設每份100元
+
+    const orderData = { orderId, customerName, meal, quantity, amount };
+
+    // 傳送資料到 Google Sheets API
+    fetch('你的Web App URL', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === 'success') {
+        document.getElementById('status').innerText = '訂單已成功提交！';
+      }
+    })
+    .catch(error => {
+      console.error('錯誤:', error);
+      document.getElementById('status').innerText = '提交失敗，請稍後再試。';
+    });
+  });
+</script>
