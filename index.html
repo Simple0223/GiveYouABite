@@ -1,4 +1,4 @@
-# 分你一口 點餐區
+# 點餐系統
 
 <form id="orderForm">
   <div>
@@ -18,31 +18,37 @@
 
   <div>
     <label for="tiramisu">提拉米蘇 (NT$ 150)：</label>
-    <input type="number" id="tiramisu" name="tiramisu" min="0" value="0">
+    <input type="number" id="tiramisu" name="tiramisu" min="0" value="0" onchange="calculateTotal()">
   </div>
   <div>
-    <label for="chestnut-layer-fruit">原味千層 (NT$ 120)：</label>
-    <input type="number" id="chestnut-layer-fruit" name="chestnut-layer-fruit" min="0" value="0">
+    <label for="chestnut-layer-fruit">千層 - 水果 (NT$ 120)：</label>
+    <input type="number" id="chestnut-layer-fruit" name="chestnut-layer-fruit" min="0" value="0" onchange="calculateTotal()">
   </div>
   <div>
-    <label for="chestnut-layer-original">水果千層 (NT$ 130)：</label>
-    <input type="number" id="chestnut-layer-original" name="chestnut-layer-original" min="0" value="0">
+    <label for="chestnut-layer-original">千層 - 原味 (NT$ 120)：</label>
+    <input type="number" id="chestnut-layer-original" name="chestnut-layer-original" min="0" value="0" onchange="calculateTotal()">
   </div>
   <div>
-    <label for="chestnut-layer-chocolate">巧克力千層 (NT$ 130)：</label>
-    <input type="number" id="chestnut-layer-chocolate" name="chestnut-layer-chocolate" min="0" value="0">
+    <label for="chestnut-layer-chocolate">千層 - 巧克力 (NT$ 130)：</label>
+    <input type="number" id="chestnut-layer-chocolate" name="chestnut-layer-chocolate" min="0" value="0" onchange="calculateTotal()">
   </div>
   <div>
     <label for="classic-cheese">經典起司 (NT$ 180)：</label>
-    <input type="number" id="classic-cheese" name="classic-cheese" min="0" value="0">
+    <input type="number" id="classic-cheese" name="classic-cheese" min="0" value="0" onchange="calculateTotal()">
   </div>
   <div>
     <label for="bask">巴斯克 (NT$ 200)：</label>
-    <input type="number" id="bask" name="bask" min="0" value="0">
+    <input type="number" id="bask" name="bask" min="0" value="0" onchange="calculateTotal()">
   </div>
   <div>
     <label for="lemon-tart">檸檬塔 (NT$ 160)：</label>
-    <input type="number" id="lemon-tart" name="lemon-tart" min="0" value="0">
+    <input type="number" id="lemon-tart" name="lemon-tart" min="0" value="0" onchange="calculateTotal()">
+  </div>
+
+  <br>
+  <div>
+    <label for="totalAmount">總金額：</label>
+    <span id="totalAmount">NT$ 0</span>
   </div>
 
   <button type="submit">送出訂單</button>
@@ -51,6 +57,28 @@
 <div id="status"></div>
 
 <script>
+  function calculateTotal() {
+    // 定義品項和價格
+    const items = [
+      { name: '提拉米蘇', price: 150, quantity: document.getElementById('tiramisu').value },
+      { name: '千層-水果', price: 120, quantity: document.getElementById('chestnut-layer-fruit').value },
+      { name: '千層-原味', price: 120, quantity: document.getElementById('chestnut-layer-original').value },
+      { name: '千層-巧克力', price: 130, quantity: document.getElementById('chestnut-layer-chocolate').value },
+      { name: '經典起司', price: 180, quantity: document.getElementById('classic-cheese').value },
+      { name: '巴斯克', price: 200, quantity: document.getElementById('bask').value },
+      { name: '檸檬塔', price: 160, quantity: document.getElementById('lemon-tart').value },
+    ];
+
+    // 計算總金額
+    let totalAmount = 0;
+    items.forEach(item => {
+      totalAmount += item.price * item.quantity;
+    });
+
+    // 更新總金額顯示
+    document.getElementById('totalAmount').innerText = 'NT$ ' + totalAmount;
+  }
+
   document.getElementById('orderForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
