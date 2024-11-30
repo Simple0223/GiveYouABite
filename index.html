@@ -58,22 +58,65 @@
 
 <script>
   function calculateTotal() {
-    // 定義品項和價格
     const items = [
       { name: '提拉米蘇', price: 150, quantity: document.getElementById('tiramisu').value },
       { name: '原味千層', price: 120, quantity: document.getElementById('chestnut-layer-original').value },
-      { name: '水果千層', price: 120, quantity: document.getElementById('chestnut-layer-fruit').value },
+      { name: '水果千層', price: 130, quantity: document.getElementById('chestnut-layer-fruit').value },
+      { name: '巧克力千層', price: 130, quantity: document.getElementById('chestnut-layer-chocolate').value },
+      { name: '經典起司', price: 180, quantity: document.getElementById('classic-cheese').value },
+      { name: '巴斯克', price: 200, quantity: document.getElementById('bask').value },
+      { name: '檸檬塔', price: 160, quantity: document.getElementById('lemon-tart').value },
+    ];
+    let totalAmount = 0;
+    items.forEach(item => {
+      totalAmount += item.price * Number(item.quantity);
+    });
+    document.getElementById('totalAmount').innerText = 'NT$ ' + totalAmount;
+  }
+
+  document.getElementById('orderForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const orderId = Math.random().toString(36).substr(2, 9);
+    const customerName = document.getElementById('customerName').value;
+    const phone = document.getElementById('phone').value;
+    const address = document.getElementById('address').value;
+
+    if (!customerName || !phone || !address) {
+      alert('請完整填寫顧客資訊！');
+      return;
+    }
+
+    const items = [
+      { name: '提拉米蘇', price: 150, quantity: document.getElementById('tiramisu').value },
+      { name: '原味千層', price: 120, quantity: document.getElementById('chestnut-layer-original').value },
+      { name: '水果千層', price: 130, quantity: document.getElementById('chestnut-layer-fruit').value },
       { name: '巧克力千層', price: 130, quantity: document.getElementById('chestnut-layer-chocolate').value },
       { name: '經典起司', price: 180, quantity: document.getElementById('classic-cheese').value },
       { name: '巴斯克', price: 200, quantity: document.getElementById('bask').value },
       { name: '檸檬塔', price: 160, quantity: document.getElementById('lemon-tart').value },
     ];
 
-    // 計算總金額
     let totalAmount = 0;
     items.forEach(item => {
-      totalAmount += item.price * item.quantity;
+      totalAmount += item.price * Number(item.quantity);
     });
+
+    const orderData = { orderId, customerName, phone, address, items, totalAmount };
+
+    fetch('https://script.google.com/macros/s/AKfycbzsZ7sM76fkrPtOP6dhwJn4JxXFcEbScb7bEDOu7BybKSgf30-32gPDvVDI46TmNcIu/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderData)
+    })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('status').innerText = '訂單已成功提交！';
+      })
+      .catch(error => {
+        document.getElementById('status').innerText = '訂單提交失敗，請稍後再試。';
+      });
+  });
+</script>
 
     // 更新總金額顯示
     document.getElementById('totalAmount').innerText = 'NT$ ' + totalAmount;
