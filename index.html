@@ -1,4 +1,4 @@
- 分你一口 點餐區
+ ＃分你一口 點餐區
 
 <form id="orderForm">
   <div>
@@ -103,7 +103,7 @@
 
     const orderData = { orderId, customerName, phone, address, items, totalAmount };
 
-    fetch('https://script.google.com/macros/s/AKfycbzsZ7sM76fkrPtOP6dhwJn4JxXFcEbScb7bEDOu7BybKSgf30-32gPDvVDI46TmNcIu/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbxd6lxYqgSoLsqQCKu0QM4uWEGQWiYKDhuysT5Oy1XYKbiSfikfUq2v_Hm1jx_7L4wF/exec', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(orderData)
