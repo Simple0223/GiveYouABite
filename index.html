@@ -1,4 +1,4 @@
- #分你一口 點餐區
+ 分你一口 點餐區
 
 <form id="orderForm">
   <div>
@@ -103,23 +103,24 @@
 
     const orderData = { orderId, customerName, phone, address, items, totalAmount };
    
-   fetch('https://script.google.com/macros/s/AKfycbwCVqIAOK5m-7oN1XJLuvK05z0RA55IMyBBTtopzGizh7piluDNqjk61K2Gs7Y6OcqM/exec', {
-    method: 'POST',
-    headers: {
-     'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(orderData), // 將訂單資料傳送到伺服器
-    })
-    .then(response => {
-     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-     }
-     return response.json();
-    })
-    .then(data => {
-     console.log('Response:', data);
-     document.getElementById('status').innerText = data.message; // 顯示回應訊息
-    })
-    .catch(error => console.error('Error:', error));
+   fetch('https://script.google.com/macros/s/AKfycbwBN3CQYka1RF0A_2sie47GKIQ2G8x2pEkGD9ByE71CxQknFtB5ksXZMxe5GOCOi2bV/exec', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(orderData),
+})
+.then(response => {
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  return response.json();
+})
+.then(data => {
+  console.log('Response:', data);
+  document.getElementById('status').innerText = data.message;
+})
+.catch(error => console.error('Error:', error));
+
   });
 </script>
