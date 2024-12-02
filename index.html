@@ -1,4 +1,4 @@
- 分你一口 點餐區
+ #分你一口 點餐區
 
 <form id="orderForm">
   <div>
@@ -77,49 +77,6 @@
   document.getElementById('orderForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const orderId = Math.random().toString(36).substr(2, 9);
-    const customerName = document.getElementById('customerName').value;
-    const phone = document.getElementById('phone').value;
-    const address = document.getElementById('address').value;
-
-    if (!customerName || !phone || !address) {
-      alert('請完整填寫顧客資訊！');
-      return;
-    }
-
-    const items = [
-      { name: '提拉米蘇', price: 150, quantity: document.getElementById('tiramisu').value },
-      { name: '原味千層', price: 120, quantity: document.getElementById('chestnut-layer-original').value },
-      { name: '水果千層', price: 130, quantity: document.getElementById('chestnut-layer-fruit').value },
-      { name: '巧克力千層', price: 130, quantity: document.getElementById('chestnut-layer-chocolate').value },
-      { name: '經典起司', price: 180, quantity: document.getElementById('classic-cheese').value },
-      { name: '巴斯克', price: 200, quantity: document.getElementById('bask').value },
-      { name: '檸檬塔', price: 160, quantity: document.getElementById('lemon-tart').value },
-    ];
-
-    let totalAmount = 0;
-    items.forEach(item => {
-      totalAmount += item.price * Number(item.quantity);
-    });
-
-    const orderData = { orderId, customerName, phone, address, items, totalAmount };
-   
-   fetch('https://script.google.com/macros/s/AKfycbwBN3CQYka1RF0A_2sie47GKIQ2G8x2pEkGD9ByE71CxQknFtB5ksXZMxe5GOCOi2bV/exec', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(orderData),
-})
-.then(response => {
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-  return response.json();
-})
-.then(data => {
-  console.log('Response:', data);
-  document.getElementById('status').innerText = data.message;
-})
 .catch(error => console.error('Error:', error));
 
   });
