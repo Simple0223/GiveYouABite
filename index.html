@@ -102,18 +102,23 @@
     });
 
     const orderData = { orderId, customerName, phone, address, items, totalAmount };
-
-    fetch('https://script.google.com/macros/s/AKfycbw6yGQmLsem3jNOFGYP5jLjDOBP6vJw6DBxxFxvHNq1rmiFf0kMqKcH1Nj_mmih1sg-/exec', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(orderData)
+   
+   fetch('https://script.google.com/macros/s/AKfycbzf7WNdSIWYMo1yBiJ5ou7S1SsdlQqNg8G7FVmBqdnnw01ENrwnIGLvll0DPCJg9Kkb/exec', {
+    method: 'POST',
+    headers: {
+     'Content-Type': 'application/json', // 告訴伺服器處理 JSON 格式
+     },
+    body: JSON.stringify({
+     test: 'data', // 這裡是您要傳遞的資料
+     }),
+   })
+    .then(response => {
+     if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+     }
+     return response.json();
     })
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('status').innerText = '訂單已成功提交！';
-      })
-      .catch(error => {
-        document.getElementById('status').innerText = '訂單提交失敗，請稍後再試。';
-      });
+    .then(data => console.log('Response:', data))
+    .catch(error => console.error('Error:', error));
   });
 </script>
