@@ -1,4 +1,3 @@
- 分你一口 點餐區
 <!DOCTYPE html>
 <html>
 
@@ -6,111 +5,126 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <title>分你一口</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" title="分你一口">
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <!-- jQuery library -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-    <!-- Popper JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+
+        .text-center {
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
- <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="handleFormSuccess();"></iframe>
-<form id="orderForm" action="https://docs.google.com/forms/d/e/1FAIpQLSeddvVROwPivkCKsaZJ1pBOSqSxcptIsGFHtQweB9I88jDzKg/formResponse" method="post" target="hidden_iframe" onsubmit="disableSubmitButton();">
- <div>
-  <label for="customerName">顧客姓名<span style="color:red">*</span></label>
-  <input type="text" id="customerName" name="entry.1915730164" required><br><br>
- </div>
- <div>
-  <label for="phone">電話<span style="color:red">*</span></label>
-  <input type="tel" id="phone" name="entry.1422224818" required><br><br>
- </div>
- <div>
-  <label for="phone">取貨日期<span style="color:red">*</span></label>
-  <input type="text" id="phone" name="entry.665904672" required><br><br>
- </div>
- <div>
-  <label for="address">取貨地址<span style="color:red">*</span></label>
-  <input type="text" id="address" name="entry.426502284" required><br><br>
- </div>
- <div>
-  <label for="tiramisu">提拉米蘇 (NT$ 150)：</label>
-  <input type="number" id="tiramisu" name="entry.1983505291" min="0" value="0" onchange="calculateTotal()">
- </div>
- <div>
-  <label for="chestnut-layer-original">原味千層 (NT$ 120)：</label>
-  <input type="number" id="chestnut-layer-original" name="entry.1066634627" min="0" value="0" onchange="calculateTotal()">
- </div>
- <div>
-  <label for="chestnut-layer-original">水果千層 (NT$ 130)：</label>
-  <input type="number" id="chestnut-layer-fruit" name="entry.943674488" min="0" value="0" onchange="calculateTotal()">
- </div>
- <div>
-  <label for="chestnut-layer-chocolate">巧克力千層 (NT$ 130)：</label>
-  <input type="number" id="chestnut-layer-chocolate" name="entry.2064828492" min="0" value="0" onchange="calculateTotal()">
- </div>
- <div>
-   <label for="classic-cheese">經典起司 (NT$ 180)：</label>
-   <input type="number" id="classic-cheese" name="entry.1051631103" min="0" value="0" onchange="calculateTotal()">
- </div>
- <div>
-   <label for="bask">巴斯克 (NT$ 200)：</label>
-   <input type="number" id="bask" name="entry.2003682119" min="0" value="0" onchange="calculateTotal()">
- </div>
- <div>
-   <label for="lemon-tart">檸檬塔 (NT$ 160)：</label>
-   <input type="number" id="lemon-tart" name="entry.307095022" min="0" value="0" onchange="calculateTotal()">
- </div>
- 
- <br>
- <div>
-  <label for="totalAmount">總金額：</label>
-  <span id="totalAmount">NT$ 0</span>
- </div>
- <div>
-  <label for="feedback">意見回饋：</label>
-  <input type="text" id="feedback" name="entry.449433667">
- </div>
- <div class="text-center">
-  <input type="submit" value="送出訂單" id="btn-submit-pledge" style="color:white;" class="btn btn-primary">
- </div>
-</form>
-
-<div id="status"></div>
-
-<script>
-  function calculateTotal() {
-    const items = [
-      { name: '提拉米蘇', price: 150, quantity: document.getElementById('tiramisu').value },
-      { name: '原味千層', price: 120, quantity: document.getElementById('chestnut-layer-original').value },
-      { name: '水果千層', price: 130, quantity: document.getElementById('chestnut-layer-fruit').value },
-      { name: '巧克力千層', price: 130, quantity: document.getElementById('chestnut-layer-chocolate').value },
-      { name: '經典起司', price: 180, quantity: document.getElementById('classic-cheese').value },
-      { name: '巴斯克', price: 200, quantity: document.getElementById('bask').value },
-      { name: '檸檬塔', price: 160, quantity: document.getElementById('lemon-tart').value },
-    ];
-    let totalAmount = 0;
-    items.forEach(item => {
-      totalAmount += item.price * Number(item.quantity);
-    });
-    document.getElementById('totalAmount').innerText = 'NT$ ' + totalAmount;
-  }
- // 禁用送出按鈕
- function disableSubmitButton() {
-  document.getElementById('btn-submit-pledge').disabled = true;
- }
- function handleFormSuccess() {
-  alert('成功送出！');
-  // 重新啟用送出按鈕
-  document.getElementById('btn-submit-pledge').disabled = false;
-
-  location.reload();
- }
-</script>
-
+    <div class="form-container">
+        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="handleFormSuccess();"></iframe>
+        <form id="orderForm" action="https://docs.google.com/forms/d/e/1FAIpQLSeddvVROwPivkCKsaZJ1pBOSqSxcptIsGFHtQweB9I88jDzKg/formResponse" method="post" target="hidden_iframe" onsubmit="disableSubmitButton();">
+            <div>
+                <label for="customerName">顧客姓名<span style="color:red">*</span></label>
+                <input type="text" id="customerName" name="entry.1915730164" required class="form-control">
+            </div>
+            <div>
+                <label for="phone">電話<span style="color:red">*</span></label>
+                <input type="tel" id="phone" name="entry.1422224818" required class="form-control">
+            </div>
+            <div>
+                <label for="phone">取貨日期<span style="color:red">*</span></label>
+                <input type="text" id="phone" name="entry.665904672" required class="form-control">
+            </div>
+            <div>
+                <label for="address">取貨地址<span style="color:red">*</span></label>
+                <input type="text" id="address" name="entry.426502284" required class="form-control">
+            </div>
+            <div>
+                <label for="tiramisu">提拉米蘇 (NT$ 150)：</label>
+                <input type="number" id="tiramisu" name="entry.1983505291" min="0" value="0" onchange="calculateTotal()" class="form-control">
+            </div>
+            <div>
+                <label for="chestnut-layer-original">原味千層 (NT$ 120)：</label>
+                <input type="number" id="chestnut-layer-original" name="entry.1066634627" min="0" value="0" onchange="calculateTotal()" class="form-control">
+            </div>
+            <div>
+                <label for="chestnut-layer-fruit">水果千層 (NT$ 130)：</label>
+                <input type="number" id="chestnut-layer-fruit" name="entry.943674488" min="0" value="0" onchange="calculateTotal()" class="form-control">
+            </div>
+            <div>
+                <label for="chestnut-layer-chocolate">巧克力千層 (NT$ 130)：</label>
+                <input type="number" id="chestnut-layer-chocolate" name="entry.2064828492" min="0" value="0" onchange="calculateTotal()" class="form-control">
+            </div>
+            <div>
+                <label for="classic-cheese">經典起司 (NT$ 180)：</label>
+                <input type="number" id="classic-cheese" name="entry.1051631103" min="0" value="0" onchange="calculateTotal()" class="form-control">
+            </div>
+            <div>
+                <label for="bask">巴斯克 (NT$ 200)：</label>
+                <input type="number" id="bask" name="entry.2003682119" min="0" value="0" onchange="calculateTotal()" class="form-control">
+            </div>
+            <div>
+                <label for="lemon-tart">檸檬塔 (NT$ 160)：</label>
+                <input type="number" id="lemon-tart" name="entry.307095022" min="0" value="0" onchange="calculateTotal()" class="form-control">
+            </div>
+            <div>
+                <label for="totalAmount">總金額：</label>
+                <span id="totalAmount">NT$ 0</span>
+            </div>
+            <div>
+                <label for="feedback">意見回饋：</label>
+                <input type="text" id="feedback" name="entry.449433667" class="form-control">
+            </div>
+            <div class="text-center">
+                <input type="submit" value="送出訂單" id="btn-submit-pledge" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+    <script>
+        function calculateTotal() {
+            const items = [
+                { name: '提拉米蘇', price: 150, quantity: document.getElementById('tiramisu').value },
+                { name: '原味千層', price: 120, quantity: document.getElementById('chestnut-layer-original').value },
+                { name: '水果千層', price: 130, quantity: document.getElementById('chestnut-layer-fruit').value },
+                { name: '巧克力千層', price: 130, quantity: document.getElementById('chestnut-layer-chocolate').value },
+                { name: '經典起司', price: 180, quantity: document.getElementById('classic-cheese').value },
+                { name: '巴斯克', price: 200, quantity: document.getElementById('bask').value },
+                { name: '檸檬塔', price: 160, quantity: document.getElementById('lemon-tart').value },
+            ];
+            let totalAmount = 0;
+            items.forEach(item => {
+                totalAmount += item.price * Number(item.quantity);
+            });
+            document.getElementById('totalAmount').innerText = 'NT$ ' + totalAmount;
+        }
+        function disableSubmitButton() {
+            document.getElementById('btn-submit-pledge').disabled = true;
+        }
+        function handleFormSuccess() {
+            alert('成功送出！');
+            document.getElementById('btn-submit-pledge').disabled = false;
+            location.reload();
+        }
+    </script>
 </body>
 
 </html>
