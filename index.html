@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0", viewport-fit=cover">
     <meta charset="utf-8">
     <title>分你一口</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -125,6 +125,13 @@
         </form>
     </div>
     <script>
+        function adjustForViewport() {
+            const viewportHeight = window.innerHeight;
+            document.body.style.height = viewportHeight + 'px';
+        }
+        window.addEventListener('resize', adjustForViewport);
+        window.addEventListener('load', adjustForViewport);
+        
         function calculateTotal() {
             const items = [
                 { name: '提拉米蘇', price: 150, quantity: document.getElementById('tiramisu').value },
