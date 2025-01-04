@@ -15,7 +15,11 @@
             background-size: cover; /* 讓背景圖片覆蓋整個頁面 */
             background-position: bottom; /* 設定背景圖片從頁面底部開始 */
             background-repeat: no-repeat; /* 避免背景圖片重複 */
-            min-height: 100vh; /* 保證背景圖佔滿整個頁面 */
+           min-height: 100%;
+        }
+
+        html, body {
+            height: 100%; /* 確保 HTML 和 body 的高度覆蓋整個內容 */
         }
         
         body {
