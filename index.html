@@ -19,8 +19,7 @@
         }
         
         body {
-            position: absolute;
-             top: 10%;
+            padding-top: env(safe-area-inset-top, 50px); /* 使用安全區域 */
             margin: 0;
             height: 100vh;
             display: flex;
@@ -28,6 +27,17 @@
             align-items: center;
             font-family: Arial, sans-serif;
         }
+
+        #question {
+                position: absolute; /* 絕對定位 */
+                top: 15%; /* 距離頂部 0 */
+                left: 50%; /* 水平置中 */
+                transform: translateX(-50%); /* 修正水平位置偏移 */
+                width: 90vw;
+                height: 55.2vw;
+                background: url('Q1.png') no-repeat center center;
+                background-size: contain;
+            }
 
         .form-container {
             width: 100%;
@@ -65,7 +75,7 @@
 </head>
 
 <body>
-    <div class="form-container">
+    <div id="question" class="form-container">
         <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="handleFormSuccess();"></iframe>
         <form id="orderForm" action="https://docs.google.com/forms/d/e/1FAIpQLSeddvVROwPivkCKsaZJ1pBOSqSxcptIsGFHtQweB9I88jDzKg/formResponse" method="post" target="hidden_iframe" onsubmit="disableSubmitButton();">
             <div>
