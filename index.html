@@ -84,6 +84,10 @@
                 <input type="tel" id="phone" name="entry.1422224818" required class="form-control">
             </div>
             <div>
+                <label for="phone">電子郵件<span style="color:red">*</span></label>
+                <input type="tel" id="phone" name="entry.1135702369" required class="form-control">
+            </div>
+            <div>
                 <label for="phone">取貨日期<span style="color:red">*</span></label>
                 <input type="text" id="phone" name="entry.665904672" required class="form-control">
             </div>
@@ -103,22 +107,7 @@
                 <label for="chestnut-layer-fruit">水果千層 (NT$ 130)：</label>
                 <input type="number" id="chestnut-layer-fruit" name="entry.943674488" min="0" value="0" onchange="calculateTotal()" class="form-control">
             </div>
-            <div>
-                <label for="chestnut-layer-chocolate">巧克力千層 (NT$ 130)：</label>
-                <input type="number" id="chestnut-layer-chocolate" name="entry.2064828492" min="0" value="0" onchange="calculateTotal()" class="form-control">
-            </div>
-            <div>
-                <label for="classic-cheese">經典起司 (NT$ 180)：</label>
-                <input type="number" id="classic-cheese" name="entry.1051631103" min="0" value="0" onchange="calculateTotal()" class="form-control">
-            </div>
-            <div>
-                <label for="bask">巴斯克 (NT$ 200)：</label>
-                <input type="number" id="bask" name="entry.2003682119" min="0" value="0" onchange="calculateTotal()" class="form-control">
-            </div>
-            <div>
-                <label for="lemon-tart">檸檬塔 (NT$ 160)：</label>
-                <input type="number" id="lemon-tart" name="entry.307095022" min="0" value="0" onchange="calculateTotal()" class="form-control">
-            </div>
+            
             <div style="text-align: right;">
                 <label for="totalAmount">總金額：</label>
                 <span id="totalAmount" style="font-weight: bold;">NT$ 0</span>
@@ -138,10 +127,6 @@
                 { name: '提拉米蘇', price: 150, quantity: document.getElementById('tiramisu').value },
                 { name: '原味千層', price: 120, quantity: document.getElementById('chestnut-layer-original').value },
                 { name: '水果千層', price: 130, quantity: document.getElementById('chestnut-layer-fruit').value },
-                { name: '巧克力千層', price: 130, quantity: document.getElementById('chestnut-layer-chocolate').value },
-                { name: '經典起司', price: 180, quantity: document.getElementById('classic-cheese').value },
-                { name: '巴斯克', price: 200, quantity: document.getElementById('bask').value },
-                { name: '檸檬塔', price: 160, quantity: document.getElementById('lemon-tart').value },
             ];
             let totalAmount = 0;
             items.forEach(item => {
