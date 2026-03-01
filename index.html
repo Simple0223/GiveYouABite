@@ -6,6 +6,49 @@
     <title>✨ 一口分甜</title>
 
     <style>
+        /* 輸入框統一樣式 */
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            margin-top: 6px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+            /* 輸入框 focus 效果 */
+            input:focus,
+            select:focus {
+                outline: none;
+                border-color: #d1ae79;
+                box-shadow: 0 0 0 3px rgba(230,164,180,0.2);
+            }
+
+        /* 送出按鈕 */
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: #d1ae79;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+            /* 滑過效果 */
+            button[type="submit"]:hover {
+                background: #a18c6d;
+                transform: translateY(-2px);
+            }
+
         body {
             background-image: url('背景.jpg');
             background-size: cover;
@@ -26,10 +69,23 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
 
+        h1, h3 {
+            font-weight: 700;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #8b5e3c;
+        }
+
         .total-box {
             font-size: 18px;
             font-weight: bold;
             line-height: 1.8;
+        }
+
+        .text-center {
+            text-align: center;
         }
     </style>
 </head>
@@ -104,13 +160,13 @@
         <div class="section">
             <h3>🚚 取貨資訊</h3>
 
-            取貨方式
+            取貨方式：
             <select id="pickupMethod" onchange="calculate()" required>
                 <option value="自取">自取</option>
                 <option value="冷藏宅配">冷藏宅配</option>
             </select><br><br>
 
-            取貨日
+            取貨日：
             <input type="date" id="pickupDate" required><br><br>
 
             <div id="addressBlock" style="display:none;">
@@ -144,16 +200,16 @@
 
             <h3>📝 訂單資訊</h3>
 
-            姓名
+            姓名：
             <input type="text" name="entry.1915730164" required><br><br>
 
-            電話
+            電話：
             <input type="text" name="entry.1422224818" required><br><br>
 
-            信箱
+            信箱：
             <input type="email" name="entry.1477996357" required><br><br>
 
-            匯款後五碼
+            匯款後五碼：
             <input type="text" name="entry.801140470" required><br><br>
 
             <input type="hidden" name="entry.665904672" id="pickupInfoField">
