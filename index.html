@@ -141,7 +141,7 @@
                 🍰 提拉米蘇
             </h3>
             購買數量(NT$180)：
-            <input type="number" id="tiramisu" value="0" min="0" oninput="this.value = Math.max(0, this.value)" onchange="calculate()"><br><br>
+            <input type="number" id="tiramisu" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();"><br><br>
             Mascarpone 結合濃縮咖啡與手指餅乾，入口柔滑細緻、濕潤綿密，<br>
             咖啡苦甜與奶香層層交織，呈現經典而迷人的提拉米蘇風味。<br>
             原料｜Mascarpone、Espreso（義大利金杯咖啡）、鮮奶油、有機紅糖、有機雞蛋（生）、義大利Boninomi手指餅乾
@@ -152,9 +152,9 @@
                 🧀 巴斯克乳酪蛋糕
             </h3>
             購買數量(切片/NT$130)：
-            <input type="number" id="basque_slice" value="0" min="0" oninput="this.value = Math.max(0, this.value)" onchange="calculate()"><br><br>
+            <input type="number" id="basque_slice" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();"><br><br>
             購買數量(6吋/NT$680)：
-            <input type="number" id="basque_whole" value="0" min="0" oninput="this.value = Math.max(0, this.value)" onchange="calculate()"><br><br>
+            <input type="number" id="basque_whole" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();"><br><br>
             高溫烘烤形成微焦香表面，內層柔軟濕潤，乳酪香氣濃郁。<br>
             原料｜Cream Cheese、有機紅糖、有機蛋、鮮奶油、酸奶、低筋麵粉
         </div>
@@ -164,9 +164,9 @@
                 🍋 檸檬桂花磅蛋糕
             </h3>
             購買數量(切片/NT$140)：
-            <input type="number" id="lemon_slice" value="0" min="0" oninput="this.value = Math.max(0, this.value)" onchange="calculate()"><br><br>
+            <input type="number" id="lemon_slice" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();"><br><br>
             購買數量(6吋/NT$720)：
-            <input type="number" id="lemon_whole" value="0" min="0" oninput="this.value = Math.max(0, this.value)" onchange="calculate()"><br><br>
+            <input type="number" id="lemon_whole" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();"><br><br>
             選用法國依思尼發酵奶油與新鮮檸檬，融合淡雅桂花香，風味清新細緻，酸甜適中。
             <br>
             原料｜法國 T45 麵粉、依思尼無鹽發酵奶油、日本上白糖、友善放牧雞蛋、糖粉、檸檬、乾燥桂花<br>
@@ -266,41 +266,53 @@
         let formSubmitted = false;
 
         function calculate() {
+            // 取得數量（用 getElementById 比較穩定）
+            const tiramisuVal = Number(document.getElementById("tiramisu").value) || 0;
+            const basqueSliceVal = Number(document.getElementById("basque_slice").value) || 0;
+            const basqueWholeVal = Number(document.getElementById("basque_whole").value) || 0;
+            const lemonSliceVal = Number(document.getElementById("lemon_slice").value) || 0;
+            const lemonWholeVal = Number(document.getElementById("lemon_whole").value) || 0;
 
-            let t = 180 * (parseInt(tiramisu.value) || 0);
-            let b1 = 130 * (parseInt(basque_slice.value) || 0);
-            let b2 = 680 * (parseInt(basque_whole.value) || 0);
-            let l1 = 140 * (parseInt(lemon_slice.value) || 0);
-            let l2 = 720 * (parseInt(lemon_whole.value) || 0);
+            // 計算原價
+            currentSubtotal =
+                (180 * tiramisuVal) +
+                (130 * basqueSliceVal) +
+                (680 * basqueWholeVal) +
+                (140 * lemonSliceVal) +
+                (720 * lemonWholeVal);
 
-            currentSubtotal = t + b1 + b2 + l1 + l2;
-
+            // 折扣
             currentDiscounted = currentSubtotal;
 
-            let today = new Date();
-            let deadline = new Date(today.getFullYear(), 2, 8);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const deadline = new Date(today.getFullYear(), 2, 8);
+            deadline.setHours(0, 0, 0, 0);
 
             if (today <= deadline) {
                 currentDiscounted = Math.floor(currentSubtotal * 0.9);
             }
 
-            let method = pickupMethod.value;
+            // 運費
+            const method = document.getElementById("pickupMethod").value;
             currentShipping = 0;
 
             if (method === "冷藏宅配") {
                 currentShipping = currentDiscounted >= 1000 ? 0 : 80;
-                addressBlock.style.display = "block";
+                document.getElementById("addressBlock").style.display = "block";
             } else {
-                addressBlock.style.display = "none";
+                document.getElementById("addressBlock").style.display = "none";
             }
 
+            // 最終金額
             currentFinal = currentDiscounted + currentShipping;
 
-            subtotal.innerText = currentSubtotal;
-            discounted.innerText = currentDiscounted;
-            shipping.innerText = currentShipping;
-            final.innerText = currentFinal;
-
+            // 更新畫面
+            document.getElementById("subtotal").innerText = currentSubtotal;
+            document.getElementById("discounted").innerText = currentDiscounted;
+            document.getElementById("shipping").innerText = currentShipping;
+            document.getElementById("final").innerText = currentFinal;
         }
 
         function prepareSubmit() {
