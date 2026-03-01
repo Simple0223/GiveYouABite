@@ -1,148 +1,239 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="zh-TW">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <title>分你一口</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <title>✨ 一口分甜</title>
+
     <style>
         body {
-            background-image: url('%E8%83%8C%E6%99%AF.jpg'); /* 替換成你的背景圖片URL */
-            background-size: cover; /* 讓背景圖片覆蓋整個頁面 */
-            background-position: bottom; /* 設定背景圖片從頁面底部開始 */
-            background-repeat: no-repeat; /* 避免背景圖片重複 */
-            background-attachment: fixed; /* 讓背景圖片固定不隨滾動 */
-        }
-        
-        body {
-            padding-top: env(safe-area-inset-top, 50px); /* 使用安全區域 */
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, sans-serif;
+            background-image: url('背景.jpg');
+            background-size: cover;
+            background-position: bottom;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: "Noto Sans TC",sans-serif;
+            padding: 40px 15px;
         }
 
-        #question {
-                position: absolute; /* 絕對定位 */
-                top: 5%; /* 距離頂部 0 */
-                left: 50%; /* 水平置中 */
-                transform: translateX(-50%); /* 修正水平位置偏移 */
-                width: 90vw;
-            }
-
-        .form-container {
-            width: 100%;
-            max-width: 500px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            background: rgba(249, 249, 249, 0.7);
+        .section {
+            max-width: 850px;
+            margin: auto;
+            background: rgba(255,255,255,0.95);
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
 
-        .text-center {
-            margin-top: 20px;
-        }
-
-        #btn-submit-pledge {
-            background-color: #f5deb3; /* 米黃色 */
-            color: #73592a; /* 設定字體顏色為深色，讓文字更清晰 */
-            font-weight: bold; /* 文字加粗 */
-            border: none; /* 去除藍色外框 */
-            box-shadow: none; /* 去除可能的陰影 */
-        }
-        
-        #btn-submit-pledge:focus {
-            background-color: #73592a; /* 米黃色 */
-            color: #f5deb3; /* 設定字體顏色為深色，讓文字更清晰 */
-            font-weight: bold; /* 文字加粗 */
-            border: none; /* 去除藍色外框 */
-            box-shadow: none; /* 去除可能的陰影 */}
-
-
-        label {
+        .total-box {
+            font-size: 18px;
             font-weight: bold;
+            line-height: 1.8;
         }
     </style>
 </head>
 
 <body>
-    <div id="question" class="form-container">
-        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="handleFormSuccess();"></iframe>
-        <form id="orderForm" action="https://docs.google.com/forms/d/e/1FAIpQLSeddvVROwPivkCKsaZJ1pBOSqSxcptIsGFHtQweB9I88jDzKg/formResponse" method="post" target="hidden_iframe" onsubmit="disableSubmitButton();">
-            <div>
-                <label for="customerName">line上的姓名<span style="color:red">*</span></label>
-                <input type="text" id="customerName" name="entry.1915730164" required class="form-control">
-            </div>
-            <div>
-                <label for="phone">電話<span style="color:red">*</span></label>
-                <input type="tel" id="phone" name="entry.1422224818" required class="form-control">
-            </div>
-            <div>
-                <label for="phone">電子郵件<span style="color:red">*</span></label>
-                <input type="tel" id="phone" name="entry.1135702369" required class="form-control">
-            </div>
-            <div>
-                <label for="phone">取貨日期<span style="color:red">*</span></label>
-                <input type="text" id="phone" name="entry.221142079" required class="form-control">
-            </div>
-            <div>
-                <label for="address">取貨地址<span style="color:red">*</span></label>
-                <input type="text" id="address" name="entry.1504706427" required class="form-control">
-            </div>
-            <div>
-                <label for="tiramisu">提拉米蘇 (NT$ 150)：</label>
-                <input type="number" id="tiramisu" name="entry.82375368" min="0" value="0" onchange="calculateTotal()" class="form-control">
-            </div>
-            <div>
-                <label for="chestnut-layer-original">原味千層 (NT$ 120)：</label>
-                <input type="number" id="chestnut-layer-original" name="entry.1245904039" min="0" value="0" onchange="calculateTotal()" class="form-control">
-            </div>
-            <div>
-                <label for="chestnut-layer-fruit">水果千層 (NT$ 130)：</label>
-                <input type="number" id="chestnut-layer-fruit" name="entry.1585563098" min="0" value="0" onchange="calculateTotal()" class="form-control">
-            </div>
-            
-            <div style="text-align: right;">
-                <label for="totalAmount">總金額：</label>
-                <span id="totalAmount" style="font-weight: bold;">NT$ 0</span>
-            </div>
-            <div>
-                <label for="feedback">意見回饋：</label>
-                <input type="text" id="feedback" name="entry.601688990" class="form-control">
-            </div>
-            <div class="text-center">
-                <input type="submit" value="送出訂單" id="btn-submit-pledge" class="btn btn-primary">
-            </div>
-        </form>
-    </div>
-    <script>
-        function calculateTotal() {
-            const items = [
-                { name: '提拉米蘇', price: 150, quantity: document.getElementById('tiramisu').value },
-                { name: '原味千層', price: 120, quantity: document.getElementById('chestnut-layer-original').value },
-                { name: '水果千層', price: 130, quantity: document.getElementById('chestnut-layer-fruit').value },
-            ];
-            let totalAmount = 0;
-            items.forEach(item => {
-                totalAmount += item.price * Number(item.quantity);
-            });
-            document.getElementById('totalAmount').innerText = 'NT$ ' + totalAmount;
-        }
-        function disableSubmitButton() {
-            document.getElementById('btn-submit-pledge').disabled = true;
-        }
-        function handleFormSuccess() {
-            alert('成功送出！');
-            document.getElementById('btn-submit-pledge').disabled = false;
-            location.reload();
-        }
-    </script>
-</body>
 
+    <div class="section text-center">
+        <h1>✨ 一口分甜</h1>
+        <p>以嚴選食材與細膩工法製作甜點。</p>
+    </div>
+
+    <form id="orderForm"
+          action="https://docs.google.com/forms/d/e/1FAIpQLSeddvVROwPivkCKsaZJ1pBOSqSxcptIsGFHtQweB9I88jDzKg/formResponse"
+          method="post"
+          target="hidden_iframe"
+          onsubmit="return prepareSubmit();">
+
+        <iframe name="hidden_iframe"
+                style="display:none;"
+                onload="submitted()"></iframe>
+
+        <div class="section">
+            <h3>🍰 產品數量</h3>
+
+            提拉米蘇 NT$180
+            <input type="number" id="tiramisu" value="0" min="0" onchange="calculate()"><br><br>
+
+            巴斯克切片 NT$140
+            <input type="number" id="basque_slice" value="0" min="0" onchange="calculate()"><br><br>
+
+            巴斯克6吋 NT$680
+            <input type="number" id="basque_whole" value="0" min="0" onchange="calculate()"><br><br>
+
+            檸檬切片 NT$140
+            <input type="number" id="lemon_slice" value="0" min="0" onchange="calculate()"><br><br>
+
+            檸檬整條 NT$720
+            <input type="number" id="lemon_whole" value="0" min="0" onchange="calculate()">
+
+        </div>
+
+        <div class="section">
+            <h3>🚚 取貨資訊</h3>
+
+            取貨方式
+            <select id="pickupMethod" onchange="calculate()" required>
+                <option value="自取">自取</option>
+                <option value="冷藏宅配">冷藏宅配</option>
+            </select><br><br>
+
+            取貨日
+            <input type="date" id="pickupDate" required><br><br>
+
+            <div id="addressBlock" style="display:none;">
+                宅配地址
+                <input type="text" id="shippingAddress">
+            </div>
+
+        </div>
+
+        <div class="section total-box">
+            原價：NT$ <span id="subtotal">0</span><br>
+            折扣後：NT$ <span id="discounted">0</span><br>
+            運費：NT$ <span id="shipping">0</span><br>
+            <strong>應付總額：NT$ <span id="final">0</span></strong>
+        </div>
+
+        <div class="section">
+
+            <h3>📝 訂單資訊</h3>
+
+            姓名
+            <input type="text" name="entry.1915730164" required><br><br>
+
+            電話
+            <input type="text" name="entry.1422224818" required><br><br>
+
+            信箱
+            <input type="email" name="entry.1477996357" required><br><br>
+
+            匯款後五碼
+            <input type="text" name="entry.801140470" required><br><br>
+
+            <input type="hidden" name="entry.665904672" id="pickupInfoField">
+            <input type="hidden" name="entry.1983505291" id="summaryField">
+            <input type="hidden" name="entry.1066634627" id="subtotalField">
+            <input type="hidden" name="entry.1764733801" id="discountField">
+            <input type="hidden" name="entry.943674488" id="shippingField">
+            <input type="hidden" name="entry.1636048135" id="finalField">
+
+            <button type="submit">送出訂單</button>
+
+        </div>
+    </form>
+
+    <script>
+
+        let currentSubtotal = 0;
+        let currentDiscounted = 0;
+        let currentShipping = 0;
+        let currentFinal = 0;
+        let formSubmitted = false;
+
+        function calculate() {
+
+            let t = 180 * Number(tiramisu.value || 0);
+            let b1 = 140 * Number(basque_slice.value || 0);
+            let b2 = 680 * Number(basque_whole.value || 0);
+            let l1 = 140 * Number(lemon_slice.value || 0);
+            let l2 = 720 * Number(lemon_whole.value || 0);
+
+            currentSubtotal = t + b1 + b2 + l1 + l2;
+
+            currentDiscounted = currentSubtotal;
+
+            let today = new Date();
+            let deadline = new Date(today.getFullYear(), 2, 8);
+
+            if (today <= deadline) {
+                currentDiscounted = Math.floor(currentSubtotal * 0.9);
+            }
+
+            let method = pickupMethod.value;
+            currentShipping = 0;
+
+            if (method === "冷藏宅配") {
+                currentShipping = currentDiscounted >= 1000 ? 0 : 80;
+                addressBlock.style.display = "block";
+            } else {
+                addressBlock.style.display = "none";
+            }
+
+            currentFinal = currentDiscounted + currentShipping;
+
+            subtotal.innerText = currentSubtotal;
+            discounted.innerText = currentDiscounted;
+            shipping.innerText = currentShipping;
+            final.innerText = currentFinal;
+
+        }
+
+        function prepareSubmit() {
+
+            calculate();
+
+            if (!pickupDate.value) {
+                alert("請選擇取貨日期");
+                return false;
+            }
+
+            if (pickupMethod.value === "冷藏宅配" && !shippingAddress.value.trim()) {
+                alert("請填寫宅配地址");
+                return false;
+            }
+
+            if (
+                Number(tiramisu.value) === 0 &&
+                Number(basque_slice.value) === 0 &&
+                Number(basque_whole.value) === 0 &&
+                Number(lemon_slice.value) === 0 &&
+                Number(lemon_whole.value) === 0
+            ) {
+                alert("請至少選擇一項商品");
+                return false;
+            }
+
+            pickupInfoField.value =
+                pickupMethod.value === "自取"
+                    ? "自取\n取貨日期：" + pickupDate.value
+                    : "冷藏宅配\n取貨日期：" + pickupDate.value + "\n宅配地址：" + shippingAddress.value;
+
+            let summary = "";
+
+            if (tiramisu.value > 0) summary += "提拉米蘇 x" + tiramisu.value + "\n";
+            if (basque_slice.value > 0) summary += "巴斯克切片 x" + basque_slice.value + "\n";
+            if (basque_whole.value > 0) summary += "巴斯克6吋 x" + basque_whole.value + "\n";
+            if (lemon_slice.value > 0) summary += "檸檬切片 x" + lemon_slice.value + "\n";
+            if (lemon_whole.value > 0) summary += "檸檬整條 x" + lemon_whole.value + "\n";
+
+            summary += "\n訂單總額：" + currentFinal;
+
+            summaryField.value = summary;
+            subtotalField.value = currentSubtotal;
+            discountField.value = currentDiscounted;
+            shippingField.value = currentShipping;
+            finalField.value = currentFinal;
+
+            formSubmitted = true;
+
+            return true;
+        }
+
+        function submitted() {
+            if (formSubmitted) {
+                alert("訂單已成功送出！");
+                document.getElementById("orderForm").reset();
+                formSubmitted = false;
+                calculate();
+            }
+        }
+
+        calculate();
+
+    </script>
+
+</body>
 </html>
