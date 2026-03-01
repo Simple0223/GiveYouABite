@@ -91,6 +91,22 @@
 </head>
 
 <body>
+    <div id="copyToast"
+         style="position:fixed;
+        bottom:30px;
+        left:50%;
+        transform:translateX(-50%);
+        background:#333;
+        color:white;
+        padding:10px 18px;
+        border-radius:20px;
+        font-size:14px;
+        opacity:0;
+        transition:0.3s;
+        pointer-events:none;
+        z-index:9999;">
+        已複製帳號
+    </div>
 
     <div class="section text-center">
         <h1>✨ 一口分甜 ✨</h1>
@@ -164,8 +180,8 @@
 
         <div class="section">
             <h3>💰 匯款資訊</h3>
-            中國信託<br>
-            代碼822 帳號：
+            中國信託(代碼822)<br>
+            帳號：
             <span id="bankAccount" style="cursor:pointer; text-decoration:underline;">
                 406890018424
             </span>
@@ -317,7 +333,13 @@
 
         document.getElementById("bankAccount").addEventListener("click", function () {
             navigator.clipboard.writeText(this.innerText);
-            alert("已複製帳號！");
+
+            let toast = document.getElementById("copyToast");
+            toast.style.opacity = "1";
+
+            setTimeout(function () {
+                toast.style.opacity = "0";
+            }, 1500);
         });
 
         calculate();
