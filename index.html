@@ -186,7 +186,11 @@
         <div class="section">
             <h3>💰 匯款資訊</h3>
             中國信託<br>
-            代碼822 帳號406890018424<br><br>
+            代碼822 帳號：
+            <span id="bankAccount" style="cursor:pointer; text-decoration:underline;">
+                406890018424
+            </span>
+            <br><br>
         </div>
 
         <div class="section">
@@ -204,13 +208,23 @@
             <input type="text" name="entry.1915730164" required><br><br>
 
             電話：
-            <input type="text" name="entry.1422224818" required><br><br>
+            <input type="text"
+                    name="entry.1422224818"
+                    inputmode="numeric"
+                    oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+                    required>
 
             信箱：
             <input type="email" name="entry.1477996357" required><br><br>
 
             匯款後五碼：
-            <input type="text" name="entry.801140470" required><br><br>
+            <input type="text"
+                name="entry.801140470"
+                maxlength="5"
+                pattern="[0-9]{5}"
+                inputmode="numeric"
+                oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+                required>
 
             備註：
             <input type="text" name="entry.900616248"><br><br>
@@ -361,6 +375,12 @@
                 calculate();
             }
         }
+
+        document.getElementById("bankAccount").addEventListener("click", function () {
+            navigator.clipboard.writeText(this.innerText);
+            alert("已複製帳號！");
+        });
+
         calculate();
     </script>
 </body>
