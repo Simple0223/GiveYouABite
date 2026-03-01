@@ -105,9 +105,8 @@
         <h3>📌 訂購須知</h3>
         甜點皆為手工製作，需冷藏保存，請儘早享用。<br>
         匯款完成，收到email確認信件後訂單才成立。<br>
-        3/8前預訂可享9折優惠，滿千享免運。<br>
+        3/8前預訂可享9折優惠。<br>
         當天3/14取貨可以內用或外帶。<br>
-        「冷藏寄送」運費為80元（巴斯克和檸檬磅蛋糕僅提供6寸整顆及整條蛋糕），依訂單順序依序於3/16及3/23出貨。
     </div>
 
     <form id="orderForm"
@@ -124,7 +123,7 @@
             <h3>
                 🍰 提拉米蘇
             </h3>
-            購買數量(NT$180)：
+            購買數量(NT$150)：
             <input type="number" id="tiramisu" value="0" min="0" oninput="this.value = Math.max(0, this.value)" onchange="calculate()"><br><br>
             Mascarpone 結合濃縮咖啡與手指餅乾，入口柔滑細緻、濕潤綿密，<br>
             咖啡苦甜與奶香層層交織，呈現經典而迷人的提拉米蘇風味。<br>
@@ -155,25 +154,6 @@
             <br>
             原料｜法國 T45 麵粉、依思尼無鹽發酵奶油、日本上白糖、友善放牧雞蛋、糖粉、檸檬、乾燥桂花<br>
             *含蛋、奶及麩質等過敏原，請自行斟酌訂購。
-        </div>
-
-        <div class="section">
-            <h3>🚚 取貨資訊</h3>
-
-            取貨方式：
-            <select id="pickupMethod" onchange="calculate()" required>
-                <option value="自取">自取</option>
-                <option value="冷藏宅配">冷藏宅配</option>
-            </select><br><br>
-
-            取貨日：
-            <input type="date" id="pickupDate" required><br><br>
-
-            <div id="addressBlock" style="display:none;">
-                宅配地址
-                <input type="text" id="shippingAddress">
-            </div>
-
         </div>
 
         <div class="section total-box">
@@ -234,7 +214,7 @@
 
         function calculate() {
 
-            let t = 180 * (parseInt(tiramisu.value) || 0);
+            let t = 150 * (parseInt(tiramisu.value) || 0);
             let b1 = 130 * (parseInt(basque_slice.value) || 0);
             let b2 = 680 * (parseInt(basque_whole.value) || 0);
             let l1 = 140 * (parseInt(lemon_slice.value) || 0);
@@ -249,16 +229,6 @@
 
             if (today <= deadline) {
                 currentDiscounted = Math.floor(currentSubtotal * 0.9);
-            }
-
-            let method = pickupMethod.value;
-            currentShipping = 0;
-
-            if (method === "冷藏宅配") {
-                currentShipping = currentDiscounted >= 1000 ? 0 : 80;
-                addressBlock.style.display = "block";
-            } else {
-                addressBlock.style.display = "none";
             }
 
             currentFinal = currentDiscounted + currentShipping;
@@ -287,30 +257,6 @@
                 }
             });
 
-            // 日期防呆：不能早於今天
-            let today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            let selectedDate = new Date(pickupDate.value);
-
-            if (selectedDate < today) {
-                alert("取貨日期不能早於今天");
-                isSubmitting = false;
-                return false;
-            }
-
-            if (!pickupDate.value) {
-                alert("請選擇取貨日期");
-                isSubmitting = false;
-                return false;
-            }
-
-            if (pickupMethod.value === "冷藏宅配" && !shippingAddress.value.trim()) {
-                alert("請填寫宅配地址");
-                isSubmitting = false;
-                return false;
-            }
-
             if (
                 Number(tiramisu.value) === 0 &&
                 Number(basque_slice.value) === 0 &&
@@ -322,11 +268,6 @@
                 isSubmitting = false;
                 return false;
             }
-
-            pickupInfoField.value =
-                pickupMethod.value === "自取"
-                    ? "自取\n取貨日期：" + pickupDate.value
-                    : "冷藏宅配\n取貨日期：" + pickupDate.value + "\n宅配地址：" + shippingAddress.value;
 
             let summary = "";
 
