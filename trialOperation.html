@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✨ 一口分甜</title>
+    <title>✨ 一口分甜 ✨</title>
 
     <style>
         /* 輸入框統一樣式 */
@@ -159,7 +159,6 @@
         <div class="section total-box">
             原價：NT$ <span id="subtotal">0</span><br>
             折扣後：NT$ <span id="discounted">0</span><br>
-            運費：NT$ <span id="shipping">0</span><br>
             <strong>應付總額：NT$ <span id="final">0</span></strong>
         </div>
 
@@ -191,6 +190,9 @@
 
             匯款後五碼：
             <input type="text" name="entry.801140470" required><br><br>
+
+            備註：
+            <input type="text" name="entry.900616248" required><br><br>
 
             <input type="hidden" name="entry.665904672" id="pickupInfoField">
             <input type="hidden" name="entry.1983505291" id="summaryField">
@@ -235,7 +237,6 @@
 
             subtotal.innerText = currentSubtotal;
             discounted.innerText = currentDiscounted;
-            shipping.innerText = currentShipping;
             final.innerText = currentFinal;
 
         }
