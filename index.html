@@ -6,7 +6,6 @@
     <title>✨ 一口分甜 ✨</title>
 
     <style>
-        /* 輸入框統一樣式 */
         input[type="text"],
         input[type="number"],
         input[type="email"],
@@ -21,7 +20,6 @@
             box-sizing: border-box;
         }
 
-            /* 輸入框 focus 效果 */
             input:focus,
             select:focus {
                 outline: none;
@@ -29,7 +27,6 @@
                 box-shadow: 0 0 0 3px rgba(230,164,180,0.2);
             }
 
-        /* 送出按鈕 */
         button[type="submit"] {
             width: 100%;
             padding: 12px;
@@ -43,7 +40,6 @@
             transition: 0.3s;
         }
 
-            /* 滑過效果 */
             button[type="submit"]:hover {
                 background: #a18c6d;
                 transform: translateY(-2px);
@@ -84,8 +80,24 @@
             line-height: 1.8;
         }
 
+        .title-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
         .text-center {
             text-align: center;
+        }
+
+        .logo {
+            max-width: 100%;
+            max-width: 900px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -106,6 +118,10 @@
             pointer-events:none;
             z-index:9999;">
         已複製帳號
+    </div>
+
+    <div class="title-area">
+        <img src="logo.jpg" class="logo" alt="Logo">
     </div>
 
     <div class="section text-center">
