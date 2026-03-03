@@ -98,10 +98,23 @@
 
         .logo {
             max-width: 100%;
-            max-width: 900px;
             height: auto;
             display: block;
             margin: 0 auto;
+        }
+
+        /* 平板 (≥768px) */
+        @media (min-width: 768px) {
+            .logo {
+                width: 90%;
+            }
+        }
+
+        /* 桌機 (≥1200px) */
+        @media (min-width: 1200px) {
+            .logo {
+                width: 50%;
+            }
         }
     </style>
 </head>
