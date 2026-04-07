@@ -212,6 +212,7 @@
             <select id="pickupMethod" onchange="calculate()" required>
                 <option value="自取">自取</option>
                 <option value="冷藏宅配">冷藏宅配</option>
+                <option value="7-11店到店">7-11店到店</option>
             </select><br><br>
 
             取貨日：
@@ -220,6 +221,17 @@
             <div id="addressBlock" style="display:none;">
                 宅配地址
                 <input type="text" id="shippingAddress">
+            </div>
+
+            <div id="sevenBlock" style="display:none; margin-top:15px;">
+
+                7-11門市
+                <input type="text" id="sevenStore" placeholder="請選擇門市" readonly>
+
+                <button type="button" onclick="openStoreMap()">
+                    選擇7-11門市
+                </button>
+
             </div>
 
         </div>
@@ -298,14 +310,13 @@
         let formSubmitted = false;
 
         function calculate() {
-            // 取得數量（用 getElementById 比較穩定）
+
             const tiramisuVal = Number(document.getElementById("tiramisu").value) || 0;
             const basqueSliceVal = Number(document.getElementById("basque_slice").value) || 0;
             const basqueWholeVal = Number(document.getElementById("basque_whole").value) || 0;
             const lemonSliceVal = Number(document.getElementById("lemon_slice").value) || 0;
             const lemonWholeVal = Number(document.getElementById("lemon_whole").value) || 0;
 
-            // 計算原價
             currentSubtotal =
                 (180 * tiramisuVal) +
                 (130 * basqueSliceVal) +
@@ -313,7 +324,6 @@
                 (140 * lemonSliceVal) +
                 (720 * lemonWholeVal);
 
-            // 折扣
             currentDiscounted = currentSubtotal;
 
             const today = new Date();
@@ -326,21 +336,34 @@
                 currentDiscounted = Math.floor(currentSubtotal * 0.9);
             }
 
-            // 運費
             const method = document.getElementById("pickupMethod").value;
+            const addressBlock = document.getElementById("addressBlock");
+            const sevenBlock = document.getElementById("sevenBlock");
+
             currentShipping = 0;
 
             if (method === "冷藏宅配") {
+
+                addressBlock.style.display = "block";
+                sevenBlock.style.display = "none";
+
                 currentShipping = currentDiscounted >= 1000 ? 0 : 80;
-                document.getElementById("addressBlock").style.display = "block";
+
+            } else if (method === "7-11店到店") {
+
+                addressBlock.style.display = "none";
+                sevenBlock.style.display = "block";
+
+                currentShipping = currentDiscounted >= 1000 ? 0 : 60;
+
             } else {
-                document.getElementById("addressBlock").style.display = "none";
+
+                addressBlock.style.display = "none";
+                sevenBlock.style.display = "none";
             }
 
-            // 最終金額
             currentFinal = currentDiscounted + currentShipping;
 
-            // 更新畫面
             document.getElementById("subtotal").innerText = currentSubtotal;
             document.getElementById("discounted").innerText = currentDiscounted;
             document.getElementById("shipping").innerText = currentShipping;
@@ -348,42 +371,32 @@
         }
 
         function prepareSubmit() {
-            if (isSubmitting) {
-                return false;
-            }
+
+            if (isSubmitting) return false;
 
             isSubmitting = true;
 
             calculate();
 
-            // 數字空值保護（再保險）
-            let inputs = [tiramisu, basque_slice, basque_whole, lemon_slice, lemon_whole];
-            inputs.forEach(input => {
-                if (input.value === "" || input.value < 0) {
-                    input.value = 0;
-                }
-            });
+            const method = pickupMethod.value;
+            const date = pickupDate.value;
+            const address = shippingAddress.value;
+            const store = sevenStore.value;
 
-            // 日期防呆：不能早於今天
-            let today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            let selectedDate = new Date(pickupDate.value);
-
-            if (selectedDate < today) {
-                alert("取貨日期不能早於今天");
-                isSubmitting = false;
-                return false;
-            }
-
-            if (!pickupDate.value) {
+            if (!date) {
                 alert("請選擇取貨日期");
                 isSubmitting = false;
                 return false;
             }
 
-            if (pickupMethod.value === "冷藏宅配" && !shippingAddress.value.trim()) {
+            if (method === "冷藏宅配" && !address.trim()) {
                 alert("請填寫宅配地址");
+                isSubmitting = false;
+                return false;
+            }
+
+            if (method === "7-11店到店" && !store.trim()) {
+                alert("請選擇7-11門市");
                 isSubmitting = false;
                 return false;
             }
@@ -400,10 +413,22 @@
                 return false;
             }
 
-            pickupInfoField.value =
-                pickupMethod.value === "自取"
-                    ? "自取\n取貨日期：" + pickupDate.value
-                    : "冷藏宅配\n取貨日期：" + pickupDate.value + "\n宅配地址：" + shippingAddress.value;
+            let pickupInfo = "";
+
+            if (method === "自取") {
+
+                pickupInfo = "自取\n取貨日期：" + date;
+
+            } else if (method === "冷藏宅配") {
+
+                pickupInfo = "冷藏宅配\n取貨日期：" + date + "\n地址：" + address;
+
+            } else {
+
+                pickupInfo = "7-11店到店\n門市：" + store + "\n取貨日期：" + date;
+            }
+
+            pickupInfoField.value = pickupInfo;
 
             let summary = "";
 
@@ -427,16 +452,33 @@
         }
 
         function submitted() {
+
             if (formSubmitted) {
+
                 alert("訂單已成功送出！");
+
                 document.getElementById("orderForm").reset();
+
                 formSubmitted = false;
                 isSubmitting = false;
+
                 calculate();
             }
         }
 
+        function openStoreMap() {
+
+            window.open(
+                "https://emap.pcsc.com.tw/",
+                "711store",
+                "width=800,height=600"
+            );
+
+            alert("請在新視窗查詢門市，並將門市名稱填回本頁。");
+        }
+
         document.getElementById("bankAccount").addEventListener("click", function () {
+
             navigator.clipboard.writeText(this.innerText);
 
             let toast = document.getElementById("copyToast");
@@ -445,9 +487,10 @@
             setTimeout(function () {
                 toast.style.opacity = "0";
             }, 1500);
+
         });
 
         calculate();
-    </script>
+        </script>
 </body>
 </html>
