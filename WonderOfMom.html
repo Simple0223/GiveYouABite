@@ -136,6 +136,53 @@
             pointer-events: none;
             filter: grayscale(40%);
         }
+
+        .pickup-locations{
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+            margin-top:10px;
+        }
+
+        .location-option{
+            padding:10px 14px;
+            border:1px solid #ddd;
+            border-radius:10px;
+            cursor:pointer;
+            transition:0.2s;
+        }
+
+        .location-option:hover{
+            background:#f7f4ef;
+        }
+
+        #timeButtons{
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+            margin-top:10px;
+        }
+
+        .time-btn{
+            padding:8px 14px;
+            border-radius:8px;
+            border:1px solid rgb(201, 201, 201);
+            background:white;
+            cursor:pointer;
+            transition:0.2s;
+        }
+
+        .time-btn:hover{
+            border:1px solid #d1ae79;
+            background:#d1ae79;
+            color:white;
+        }
+
+        .time-btn.selected{
+            border:1px solid #d1ae79;
+            background:#d1ae79;
+            color:white;
+        }
     </style>
 </head>
 
@@ -164,20 +211,10 @@
     <div class="section text-center">
         <h1>✨ 一口分甜 ✨</h1>
         <p>
-            以嚴選食材與細膩工法，製作每一份值得期待的甜點。<br>
-            也期望把好吃的甜點分享出去！<br>
-            在3/14（六）會有一天的實體店面！歡迎大家來坐坐！
+            一口分甜，將這份最純粹的甜，分給生命中最優雅的她。<br>
+            在這個特別的時刻，用一份甜點，為重要的人留下一段溫柔的時光。<br>
+            甜點皆為手工製作，數量有限，售完為止。<br>
         </p>
-    </div>
-
-    <div class="section notice">
-        <h3>📌 訂購須知</h3>
-        甜點皆為手工製作，需冷藏保存，請儘早享用。<br>
-        匯款完成，收到email確認信件後訂單才成立。<br>
-        3/8前預訂可享9折優惠，滿千享免運。<br>
-        當天3/14取貨可以內用或外帶。<br>
-        「冷藏寄送」運費為80元（巴斯克和檸檬磅蛋糕僅提供6寸整顆及整條蛋糕），依訂單順序依序於3/16及3/23出貨。
-        含蛋、奶及麩質等過敏原，請自行斟酌訂購<br>
     </div>
 
     <div id="closedNotice" style="
@@ -278,61 +315,53 @@
             原料｜法國 T45 麵粉、依思尼無鹽發酵奶油、日本上白糖、友善放牧雞蛋、糖粉、檸檬、乾燥桂花<br>
         </div>
 
-        <div class="section">
-            <h3>🚚 取貨資訊</h3>
-
-            取貨方式：
-            <select id="pickupMethod" onchange="calculate()" required>
-                <option value="自取">自取</option>
-                <option value="冷藏宅配">冷藏宅配</option>
-                <option value="7-11店到店">7-11店到店</option>
-            </select><br><br>
-
-            取貨日：
-            <input type="date" id="pickupDate" required><br><br>
-
-            <div id="addressBlock" style="display:none;">
-                宅配地址
-                <input type="text" id="shippingAddress">
-            </div>
-
-            <div id="sevenBlock" style="display:none; margin-top:15px;">
-
-                7-11門市
-                <input type="text" id="sevenStore" placeholder="請填寫門市名稱或店號">
-
-                <button type="button" class="store-btn" onclick="openStoreMap()">
-                    🔍 搜尋 7-11 門市
-                </button>
-
-            </div>
-
-        </div>
-
         <div class="section total-box">
             原價：NT$ <span id="subtotal">0</span><br>
             折扣後：NT$ <span id="discounted">0</span><br>
             <div id="shippingRow">
                 運費：NT$ <span id="shipping">0</span><br>
             </div>
-            <strong>應付總額：NT$ <span id="final">0</span></strong>
-        </div>
-
-        <div class="section">
-            <h3>💰 匯款資訊</h3>
+            <strong>應付總額：NT$ <span id="final">0</span></strong><br>
+            <br>
+            <strong>💰 匯款資訊</strong><br>
             中國信託(代碼822)<br>
             帳號：
             <span id="bankAccount" style="cursor:pointer; text-decoration:underline;">
                 406890018424
             </span>
-            <br><br>
         </div>
 
         <div class="section">
-            <h3>📞 聯絡我們</h3>
-            電話：郭先生 0981189371 / 陳小姐 0988755638<br>
+            <h3>📌 訂購須知</h3>
+            <strong>🗓 訂購時間</strong><br>
+            即日起至 5/2 23:59 截止（如提前售完將提早關單）<br>
+            ⸻<br>
+            <strong>💰 訂單成立方式</strong><br>
+            請於下單後完成匯款，並以收到 Email 確認通知 為訂單成立依據。<br>
+            ⸻<br>
+            <strong>🎁 母親節限定優惠</strong><br>
+            （待討論）<br>
+            ———<br>
+            <strong>🏡 取貨方式</strong><br>
+            本次以 <strong>5/8 面交取貨</strong> 為主，時間地點如下：<br>
+            📍 12:00~17:00 -- 臺北市中山區中原街3號1樓<br>
+            📍 18:00~22:00 -- 台北市中山區植福路170號（夏凱納糧堂）<br>
+            <br>
+            ⚠️ 請準時取貨，以確保甜點最佳風味與品質<br>
+            ⸻<br>
+            <strong>🍰 保存與食用方式</strong><br>
+            ·甜點皆需 冷藏保存<br>
+            ·建議於 2–3 天內食用完畢<br>
+            ⸻<br>
+            <strong>❗ 注意事項</strong><br>
+            ·本產品含有 蛋、奶、麩質 等過敏原，請自行斟酌訂購<br>
+            ·手工製作，每批外觀略有差異屬正常現象<br>
+            ·訂單成立後恕不接受取消或更改<br>
+            ⸻<br>
+            <strong>📞 聯絡我們</strong><br>
+            聯絡人：郭先生<br>
+            電話：0981189371<br>
             Line ID：0981189371<br>
-            地址：臺北市中山區中原街3號1樓
         </div>
 
         <div class="section">
@@ -347,10 +376,36 @@
                    name="entry.1422224818"
                    inputmode="numeric"
                    oninput="this.value=this.value.replace(/[^0-9]/g,'')"
-                   required>
+                   required><br><br>
 
             信箱：
             <input type="email" name="entry.1477996357" required><br><br>
+
+            取貨地點：
+            <div class="pickup-locations">
+
+            <label class="location-option">
+            <input type="radio" name="pickupLocation" value="中原街" onclick="showTimes('A')">
+            中原街3號1樓
+            </label>
+
+            <label class="location-option">
+            <input type="radio" name="pickupLocation" value="夏凱納糧堂" onclick="showTimes('B')">
+            夏凱納糧堂
+            </label>
+
+            </div>
+
+            <br>
+
+            <div id="timeBlock" style="display:none;" required>
+            選擇時間：
+
+            <div id="timeButtons"></div><br>
+
+            <input type="hidden" id="pickupTime">
+
+            </div>
 
             匯款後五碼：
             <input type="text"
@@ -359,7 +414,7 @@
                    pattern="[0-9]{5}"
                    inputmode="numeric"
                    oninput="this.value=this.value.replace(/[^0-9]/g,'')"
-                   required>
+                   required><br><br>
 
             備註：
             <input type="text" name="entry.900616248"><br><br>
@@ -404,6 +459,59 @@
                 document.querySelector("button[type='submit']").disabled = true;
             }
         }
+
+        let selectedLocation = "";
+        let selectedTime = "";
+
+        const locationATimes = [
+        "12:00","12:30","13:00","13:30","14:00",
+        "14:30","15:00","15:30","16:00","16:30", "17:00"
+        ];
+
+        const locationBTimes = [
+        "18:00","18:30","19:00","19:30",
+        "20:00","20:30","21:00","21:30", "22:00"
+        ];
+
+        function showTimes(location){
+
+            selectedLocation = location;
+
+            let times = location === "A" ? locationATimes : locationBTimes;
+
+            let container = document.getElementById("timeButtons");
+
+            container.innerHTML="";
+
+            times.forEach(time=>{
+
+            let btn=document.createElement("button");
+
+            btn.type="button";
+
+            btn.innerText=time;
+
+            btn.className="time-btn";
+
+            btn.onclick=function(){
+
+                document.querySelectorAll(".time-btn").forEach(b=>b.classList.remove("selected"));
+
+                btn.classList.add("selected");
+
+                selectedTime=time;
+
+                document.getElementById("pickupTime").value=time;
+
+            };
+
+        container.appendChild(btn);
+
+        });
+
+        document.getElementById("timeBlock").style.display="block";
+
+        }
         
         function calculate() {
 
@@ -429,84 +537,28 @@
             const today = new Date();
             today.setHours(0, 0, 0, 0);
 
-            const deadline = new Date(today.getFullYear(), 2, 8);
-            deadline.setHours(0, 0, 0, 0);
-
-            if (today <= deadline) {
-                currentDiscounted = Math.floor(currentSubtotal * 0.9);
-            }
-
-            const method = document.getElementById("pickupMethod").value;
-            const addressBlock = document.getElementById("addressBlock");
-            const sevenBlock = document.getElementById("sevenBlock");
-            const shippingRow = document.getElementById("shippingRow");
-
-            currentShipping = 0;
-
-            if (method === "冷藏宅配") {
-
-                addressBlock.style.display = "block";
-                sevenBlock.style.display = "none";
-                shippingRow.style.display = "block";
-
-                if (currentSubtotal > 0) {
-                    currentShipping = currentDiscounted >= 1000 ? 0 : 80;
-                }
-
-            } else if (method === "7-11店到店") {
-
-                addressBlock.style.display = "none";
-                sevenBlock.style.display = "block";
-                shippingRow.style.display = "block";
-
-            if (currentSubtotal > 0) {
-                    currentShipping = currentDiscounted >= 1000 ? 0 : 60;
-                }
-            } else {
-
-                addressBlock.style.display = "none";
-                sevenBlock.style.display = "none";
-                shippingRow.style.display = "none";
-            }
+            currentShipping = currentShipping || 0;
 
             currentFinal = currentDiscounted + currentShipping;
 
             document.getElementById("subtotal").innerText = currentSubtotal;
             document.getElementById("discounted").innerText = currentDiscounted;
-            document.getElementById("shipping").innerText = currentShipping;
             document.getElementById("final").innerText = currentFinal;
         }
 
         function prepareSubmit() {
-
             if (isSubmitting) return false;
 
             isSubmitting = true;
 
             calculate();
 
-            const method = pickupMethod.value;
-            const date = pickupDate.value;
-            const address = shippingAddress.value;
-            const store = sevenStore.value;
-
-            if (!date) {
-                alert("請選擇取貨日期");
-                isSubmitting = false;
-                return false;
-            }
-
-            if (method === "冷藏宅配" && !address.trim()) {
-                alert("請填寫宅配地址");
-                isSubmitting = false;
-                return false;
-            }
-
-            if (method === "7-11店到店" && !store.trim()) {
-                alert("請選擇7-11門市");
-                isSubmitting = false;
-                return false;
-            }
+            let inputs = [mom_basque_slice, mom_tiramisu, tiramisu, basque_slice, basque_whole, lemon_slice, lemon_whole];
+            inputs.forEach(input => {
+                if (input.value === "" || input.value < 0) {
+                    input.value = 0;
+                }
+            });
 
             if (
                 Number(mom_basque_slice.value) === 0 &&
@@ -522,22 +574,19 @@
                 return false;
             }
 
-            let pickupInfo = "";
+            const locationRadio = document.querySelector('input[name="pickupLocation"]:checked');
+            const location = locationRadio ? locationRadio.value : "";
+            const time = document.getElementById("pickupTime").value;
 
-            if (method === "自取") {
-
-                pickupInfo = "自取\n取貨日期：" + date;
-
-            } else if (method === "冷藏宅配") {
-
-                pickupInfo = "冷藏宅配\n取貨日期：" + date + "\n地址：" + address;
-
-            } else {
-
-                pickupInfo = "7-11店到店\n門市：" + store + "\n取貨日期：" + date;
+            if (!location || !time) {
+                alert("取貨地點與時間未填寫完成");
+                isSubmitting = false;
+                return false;
             }
 
-            pickupInfoField.value = pickupInfo;
+            const pickupInfo = "5/8 取貨｜" + location + "｜" + time;
+
+            document.getElementById("pickupInfoField").value = pickupInfo;
 
             let summary = "";
 
