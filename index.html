@@ -92,6 +92,28 @@
             text-align: center;
         }
 
+        .quantity-box{
+            display:flex;
+            align-items:center;
+            gap:5px;
+        }
+
+        .qty-btn{
+            width:32px;
+            height:32px;
+            border:none;
+            background:#d1ae79;
+            color:white;
+            font-size:20px;
+            border-radius:6px;
+            cursor:pointer;
+            transition:0.2s;
+        }
+
+        .qty-btn:hover{
+            background:#a18c6d;
+        }
+
         .logo {
             max-width: 100%;
             height: auto;
@@ -189,7 +211,12 @@
                 🍰 提拉米蘇
             </h3>
             購買數量(NT$180)：
-            <input type="number" id="tiramisu" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();"><br><br>
+            <div class="quantity-box">
+                <button type="button" class="qty-btn" onclick="changeQty('tiramisu', -1)">−</button>
+                <input type="number" id="tiramisu" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();">
+                <button type="button" class="qty-btn" onclick="changeQty('tiramisu', 1)">＋</button>
+            </div>
+            <br>
             <strong>
                 Mascarpone 結合濃縮咖啡與手指餅乾，入口柔滑細緻、濕潤綿密，<br>
                 咖啡苦甜與奶香層層交織，呈現經典而迷人的提拉米蘇風味。
@@ -202,9 +229,19 @@
                 🧀 巴斯克乳酪蛋糕
             </h3>
             購買數量(切片/NT$130)：
-            <input type="number" id="basque_slice" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();"><br><br>
+            <div class="quantity-box">
+                <button type="button" class="qty-btn" onclick="changeQty('basque_slice', -1)">−</button>
+                <input type="number" id="basque_slice" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();">
+                <button type="button" class="qty-btn" onclick="changeQty('basque_slice', 1)">＋</button>
+            </div>
+            <br> 
             購買數量(6吋/NT$680)：
-            <input type="number" id="basque_whole" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();"><br><br>
+            <div class="quantity-box">
+                <button type="button" class="qty-btn" onclick="changeQty('basque_whole', -1)">−</button>
+                <input type="number" id="basque_whole" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();">
+                <button type="button" class="qty-btn" onclick="changeQty('basque_whole', 1)">＋</button>
+            </div>
+            <br>
             <strong>高溫烘烤形成微焦香表面，內層柔軟濕潤，乳酪香氣濃郁。</strong>
             <br>
             原料｜Cream Cheese、有機紅糖、有機蛋、鮮奶油、酸奶、低筋麵粉
@@ -215,9 +252,19 @@
                 🍋 檸檬桂花磅蛋糕
             </h3>
             購買數量(切片/NT$140)：
-            <input type="number" id="lemon_slice" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();"><br><br>
+            <div class="quantity-box">
+                <button type="button" class="qty-btn" onclick="changeQty('lemon_slice', -1)">−</button>
+                <input type="number" id="lemon_slice" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();">
+                <button type="button" class="qty-btn" onclick="changeQty('lemon_slice', 1)">＋</button>
+            </div>
+            <br>
             購買數量(6吋/NT$720)：
-            <input type="number" id="lemon_whole" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();"><br><br>
+            <div class="quantity-box">
+                <button type="button" class="qty-btn" onclick="changeQty('lemon_whole', -1)">−</button>
+                <input type="number" id="lemon_whole" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();">
+                <button type="button" class="qty-btn" onclick="changeQty('lemon_whole', 1)">＋</button>
+            </div>
+            <br>
             <strong>選用法國依思尼發酵奶油與新鮮檸檬，融合淡雅桂花香，風味清新細緻，酸甜適中。</strong>
             <br>
             原料｜法國 T45 麵粉、依思尼無鹽發酵奶油、日本上白糖、友善放牧雞蛋、糖粉、檸檬、乾燥桂花<br>
@@ -329,6 +376,15 @@
         let currentShipping = 0;
         let currentFinal = 0;
         let formSubmitted = false;
+
+        function changeQty(id, delta){
+            const input = document.getElementById(id);
+            let val = Number(input.value) || 0;
+            val += delta;
+            if(val < 0) val = 0;
+            input.value = val;
+            calculate();
+        }
 
         function calculate() {
 
