@@ -186,6 +186,40 @@
 
         <div class="section">
             <h3>
+               🌸 母親節期間限定 🌸<br>
+                一口分甜·燦爛時光
+            </h3>
+            購買數量($720 / 6寸)：
+            <input type="number" id="mom_basque_slice" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();"><br><br>
+            <strong>伯爵鮮果巴斯克</strong><br>
+            <strong>頂層</strong>｜繽紛鮮果：<br>嚴選鮮紅草莓、清甜麝香葡萄與藍莓，堆疊出珠寶盒般的華麗視覺，最後撒上如雪花般的輕盈糖粉。<br>
+
+            <strong>核心</strong>｜伯爵乳酪：<br>導入高品質伯爵茶葉研磨入餡，讓佛手柑的清雅茶韻中和乳酪的濃厚，每一口都潤口回甘。<br>
+
+            <strong>驚喜</strong>｜焦香對比：<br>堅持完美的烘焙曲線，以經典焦黑烤面鎖住內部極致濕潤的半熟口感，由外而內的濃郁層次，在舌尖留下一抹內斂的焦糖茶韻。<br>
+            <br>
+            原料｜Cream Cheese、有機紅糖、有機蛋、鮮奶油、酸奶、低筋麵粉、Twinings伯爵茶、草莓、麝香葡萄、藍莓、糖粉
+        </div>
+
+        <div class="section">
+            <h3>
+               🌸 母親節期間限定 🌸<br>
+                一口分甜·莓好時光
+            </h3>
+            購買數量($600 / 盒)：
+            <input type="number" id="mom_tiramisu" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();"><br><br>
+            <strong>伯爵草莓提拉米蘇</strong><br>
+            <strong>頂層</strong>｜經典紅黑：<br>鋪上醇厚濃郁的深色可可粉，中央點綴一顆完熟鮮紅草莓，展現出最高雅的節慶配色。<br>
+
+            <strong>核心</strong>｜絲滑慕斯：<br>選用高品質Mascarpone，呈現如雲朵般輕盈、入口即化的細膩質地，將伯爵茶的清新佛手柑香氣溫柔包覆。<br>
+
+            <strong>驚喜</strong>｜茶韻靈魂：<br>捨棄經典的espresso ，改以濃郁伯爵茶液浸潤手指餅乾。濕潤的餅乾夾層爆發出清爽茶香，與可可粉交織出驚喜的味蕾層次。<br>
+            <br>
+            原料｜Mascarpone、Twinings伯爵茶、鮮奶油、有機紅糖、有機雞蛋（生）、義大利Boninomi手指餅乾、草莓
+        </div>
+
+        <div class="section">
+            <h3>
                 🍰 提拉米蘇
             </h3>
             購買數量(NT$180)：
@@ -331,6 +365,8 @@
 
         function calculate() {
 
+            const momBasqueSliceVal = Number(document.getElementById("mom_basque_slice").value) || 0;
+            const momTiramisuVal = Number(document.getElementById("mom_tiramisu").value) || 0;
             const tiramisuVal = Number(document.getElementById("tiramisu").value) || 0;
             const basqueSliceVal = Number(document.getElementById("basque_slice").value) || 0;
             const basqueWholeVal = Number(document.getElementById("basque_whole").value) || 0;
@@ -338,6 +374,8 @@
             const lemonWholeVal = Number(document.getElementById("lemon_whole").value) || 0;
 
             currentSubtotal =
+                (720 * momBasqueSliceVal) +
+                (600 * momTiramisuVal) +
                 (180 * tiramisuVal) +
                 (130 * basqueSliceVal) +
                 (680 * basqueWholeVal) +
@@ -429,6 +467,8 @@
             }
 
             if (
+                Number(mom_basque_slice.value) === 0 &&
+                Number(mom_tiramisu.value) === 0 &&
                 Number(tiramisu.value) === 0 &&
                 Number(basque_slice.value) === 0 &&
                 Number(basque_whole.value) === 0 &&
@@ -459,6 +499,8 @@
 
             let summary = "";
 
+            if (mom_basque_slice.value > 0) summary += "伯爵鮮果巴斯克 x" + mom_basque_slice.value + "\n";
+            if (mom_tiramisu.value > 0) summary += "伯爵草莓提拉米蘇 x" + mom_tiramisu.value + "\n";
             if (tiramisu.value > 0) summary += "提拉米蘇 x" + tiramisu.value + "\n";
             if (basque_slice.value > 0) summary += "巴斯克切片 x" + basque_slice.value + "\n";
             if (basque_whole.value > 0) summary += "巴斯克6吋 x" + basque_whole.value + "\n";
