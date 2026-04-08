@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ 一口分甜-母親節限定 ✨</title>
+
+    <style>
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            margin-top: 6px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+            input:focus,
+            select:focus {
+                outline: none;
+                border-color: #d1ae79;
+                box-shadow: 0 0 0 3px rgba(230,164,180,0.2);
+            }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: #d1ae79;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+            button[type="submit"]:hover {
+                background: #a18c6d;
+                transform: translateY(-2px);
+            }
+
+        body {
+            background-image: url('背景.jpg');
+            background-size: cover;
+            background-position: bottom;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: "Noto Sans TC",sans-serif;
+            padding: 40px 15px;
+        }
+
+        .section {
+            max-width: 850px;
+            margin: auto;
+            background: rgba(255,255,255,0.95);
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        h1, h3 {
+            font-weight: 700;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #8b5e3c;
+        }
+
+        .total-box {
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1.8;
+        }
+
+        .title-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .logo {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .store-btn{
+            margin-top:10px;
+            padding:10px 14px;
+            border-radius:10px;
+            border:1px solid #d1ae79;
+            background:white;
+            color:#8b5e3c;
+            font-size:14px;
+            cursor:pointer;
+            transition:0.25s;
+        }
+
+        .store-btn:hover{
+            background:#d1ae79;
+            color:white;
+            transform:translateY(-1px);
+        }
+
+        /* 平板 (≥768px) */
+        @media (min-width: 768px) {
+            .logo {
+                width: 90%;
+            }
+        }
+
+        /* 桌機 (≥1200px) */
+        @media (min-width: 1200px) {
+            .logo {
+                width: 50%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="copyToast"
+         style="position:fixed;
+            bottom:30px;
+            left:50%;
+            transform:translateX(-50%);
+            background:#333;
+            color:white;
+            padding:10px 18px;
+            border-radius:20px;
+            font-size:14px;
+            opacity:0;
+            transition:0.3s;
+            pointer-events:none;
+            z-index:9999;">
+        已複製帳號
+    </div>
+
+    <div class="title-area">
+        <img src="logo.jpg" class="logo" alt="Logo">
+    </div>
+
+    <div class="section text-center">
+        <h1>✨ 一口分甜 ✨</h1>
+        <p>
+            以嚴選食材與細膩工法，製作每一份值得期待的甜點。<br>
+            也期望把好吃的甜點分享出去！<br>
+            在3/14（六）會有一天的實體店面！歡迎大家來坐坐！
+        </p>
+    </div>
+
+    <div class="section notice">
+        <h3>📌 訂購須知</h3>
+        甜點皆為手工製作，需冷藏保存，請儘早享用。<br>
+        匯款完成，收到email確認信件後訂單才成立。<br>
+        3/8前預訂可享9折優惠，滿千享免運。<br>
+        當天3/14取貨可以內用或外帶。<br>
+        「冷藏寄送」運費為80元（巴斯克和檸檬磅蛋糕僅提供6寸整顆及整條蛋糕），依訂單順序依序於3/16及3/23出貨。
+        含蛋、奶及麩質等過敏原，請自行斟酌訂購<br>
+    </div>
+
+    <form id="orderForm"
+          action="https://docs.google.com/forms/d/e/1FAIpQLSeddvVROwPivkCKsaZJ1pBOSqSxcptIsGFHtQweB9I88jDzKg/formResponse"
+          method="post"
+          target="hidden_iframe"
+          onsubmit="return prepareSubmit();">
+
+        <iframe name="hidden_iframe"
+                style="display:none;"
+                onload="submitted()"></iframe>
+
+        <div class="section">
+            <h3>
+                🍰 提拉米蘇
+            </h3>
+            購買數量(NT$180)：
+            <input type="number" id="tiramisu" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();"><br><br>
+            <strong>
+                Mascarpone 結合濃縮咖啡與手指餅乾，入口柔滑細緻、濕潤綿密，<br>
+                咖啡苦甜與奶香層層交織，呈現經典而迷人的提拉米蘇風味。
+            </strong><br>
+            原料｜Mascarpone、Espreso（義大利金杯咖啡）、鮮奶油、有機紅糖、有機雞蛋（生）、義大利Boninomi手指餅乾
+        </div>
+
+        <div class="section">
+            <h3>
+                🧀 巴斯克乳酪蛋糕
+            </h3>
+            購買數量(切片/NT$130)：
+            <input type="number" id="basque_slice" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();"><br><br>
+            購買數量(6吋/NT$680)：
+            <input type="number" id="basque_whole" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();"><br><br>
+            <strong>高溫烘烤形成微焦香表面，內層柔軟濕潤，乳酪香氣濃郁。</strong>
+            <br>
+            原料｜Cream Cheese、有機紅糖、有機蛋、鮮奶油、酸奶、低筋麵粉
+        </div>
+
+        <div class="section">
+            <h3>
+                🍋 檸檬桂花磅蛋糕
+            </h3>
+            購買數量(切片/NT$140)：
+            <input type="number" id="lemon_slice" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();"><br><br>
+            購買數量(6吋/NT$720)：
+            <input type="number" id="lemon_whole" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();"><br><br>
+            <strong>選用法國依思尼發酵奶油與新鮮檸檬，融合淡雅桂花香，風味清新細緻，酸甜適中。</strong>
+            <br>
+            原料｜法國 T45 麵粉、依思尼無鹽發酵奶油、日本上白糖、友善放牧雞蛋、糖粉、檸檬、乾燥桂花<br>
+        </div>
+
+        <div class="section">
+            <h3>🚚 取貨資訊</h3>
+
+            取貨方式：
+            <select id="pickupMethod" onchange="calculate()" required>
+                <option value="自取">自取</option>
+                <option value="冷藏宅配">冷藏宅配</option>
+                <option value="7-11店到店">7-11店到店</option>
+            </select><br><br>
+
+            取貨日：
+            <input type="date" id="pickupDate" required><br><br>
+
+            <div id="addressBlock" style="display:none;">
+                宅配地址
+                <input type="text" id="shippingAddress">
+            </div>
+
+            <div id="sevenBlock" style="display:none; margin-top:15px;">
+
+                7-11門市
+                <input type="text" id="sevenStore" placeholder="請填寫門市名稱或店號">
+
+                <button type="button" class="store-btn" onclick="openStoreMap()">
+                    🔍 搜尋 7-11 門市
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="section total-box">
+            原價：NT$ <span id="subtotal">0</span><br>
+            折扣後：NT$ <span id="discounted">0</span><br>
+            <div id="shippingRow">
+                運費：NT$ <span id="shipping">0</span><br>
+            </div>
+            <strong>應付總額：NT$ <span id="final">0</span></strong>
+        </div>
+
+        <div class="section">
+            <h3>💰 匯款資訊</h3>
+            中國信託(代碼822)<br>
+            帳號：
+            <span id="bankAccount" style="cursor:pointer; text-decoration:underline;">
+                406890018424
+            </span>
+            <br><br>
+        </div>
+
+        <div class="section">
+            <h3>📞 聯絡我們</h3>
+            電話：郭先生 0981189371 / 陳小姐 0988755638<br>
+            Line ID：0981189371<br>
+            地址：臺北市中山區中原街3號1樓
+        </div>
+
+        <div class="section">
+
+            <h3>📝 訂單資訊</h3>
+
+            姓名：
+            <input type="text" name="entry.1915730164" required><br><br>
+
+            電話：
+            <input type="text"
+                   name="entry.1422224818"
+                   inputmode="numeric"
+                   oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+                   required>
+
+            信箱：
+            <input type="email" name="entry.1477996357" required><br><br>
+
+            匯款後五碼：
+            <input type="text"
+                   name="entry.801140470"
+                   maxlength="5"
+                   pattern="[0-9]{5}"
+                   inputmode="numeric"
+                   oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+                   required>
+
+            備註：
+            <input type="text" name="entry.900616248"><br><br>
+
+            <input type="hidden" name="entry.665904672" id="pickupInfoField">
+            <input type="hidden" name="entry.1983505291" id="summaryField">
+            <input type="hidden" name="entry.1066634627" id="subtotalField">
+            <input type="hidden" name="entry.1764733801" id="discountField">
+            <input type="hidden" name="entry.943674488" id="shippingField">
+            <input type="hidden" name="entry.1636048135" id="finalField">
+
+            <button type="submit">送出訂單</button>
+
+        </div>
+    </form>
+
+    <script>
+        let isSubmitting = false;
+        let currentSubtotal = 0;
+        let currentDiscounted = 0;
+        let currentShipping = 0;
+        let currentFinal = 0;
+        let formSubmitted = false;
+
+        function calculate() {
+
+            const tiramisuVal = Number(document.getElementById("tiramisu").value) || 0;
+            const basqueSliceVal = Number(document.getElementById("basque_slice").value) || 0;
+            const basqueWholeVal = Number(document.getElementById("basque_whole").value) || 0;
+            const lemonSliceVal = Number(document.getElementById("lemon_slice").value) || 0;
+            const lemonWholeVal = Number(document.getElementById("lemon_whole").value) || 0;
+
+            currentSubtotal =
+                (180 * tiramisuVal) +
+                (130 * basqueSliceVal) +
+                (680 * basqueWholeVal) +
+                (140 * lemonSliceVal) +
+                (720 * lemonWholeVal);
+
+            currentDiscounted = currentSubtotal;
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const deadline = new Date(today.getFullYear(), 2, 8);
+            deadline.setHours(0, 0, 0, 0);
+
+            if (today <= deadline) {
+                currentDiscounted = Math.floor(currentSubtotal * 0.9);
+            }
+
+            const method = document.getElementById("pickupMethod").value;
+            const addressBlock = document.getElementById("addressBlock");
+            const sevenBlock = document.getElementById("sevenBlock");
+            const shippingRow = document.getElementById("shippingRow");
+
+            currentShipping = 0;
+
+            if (method === "冷藏宅配") {
+
+                addressBlock.style.display = "block";
+                sevenBlock.style.display = "none";
+                shippingRow.style.display = "block";
+
+                if (currentSubtotal > 0) {
+                    currentShipping = currentDiscounted >= 1000 ? 0 : 80;
+                }
+
+            } else if (method === "7-11店到店") {
+
+                addressBlock.style.display = "none";
+                sevenBlock.style.display = "block";
+                shippingRow.style.display = "block";
+
+            if (currentSubtotal > 0) {
+                    currentShipping = currentDiscounted >= 1000 ? 0 : 60;
+                }
+            } else {
+
+                addressBlock.style.display = "none";
+                sevenBlock.style.display = "none";
+                shippingRow.style.display = "none";
+            }
+
+            currentFinal = currentDiscounted + currentShipping;
+
+            document.getElementById("subtotal").innerText = currentSubtotal;
+            document.getElementById("discounted").innerText = currentDiscounted;
+            document.getElementById("shipping").innerText = currentShipping;
+            document.getElementById("final").innerText = currentFinal;
+        }
+
+        function prepareSubmit() {
+
+            if (isSubmitting) return false;
+
+            isSubmitting = true;
+
+            calculate();
+
+            const method = pickupMethod.value;
+            const date = pickupDate.value;
+            const address = shippingAddress.value;
+            const store = sevenStore.value;
+
+            if (!date) {
+                alert("請選擇取貨日期");
+                isSubmitting = false;
+                return false;
+            }
+
+            if (method === "冷藏宅配" && !address.trim()) {
+                alert("請填寫宅配地址");
+                isSubmitting = false;
+                return false;
+            }
+
+            if (method === "7-11店到店" && !store.trim()) {
+                alert("請選擇7-11門市");
+                isSubmitting = false;
+                return false;
+            }
+
+            if (
+                Number(tiramisu.value) === 0 &&
+                Number(basque_slice.value) === 0 &&
+                Number(basque_whole.value) === 0 &&
+                Number(lemon_slice.value) === 0 &&
+                Number(lemon_whole.value) === 0
+            ) {
+                alert("請至少選擇一項商品");
+                isSubmitting = false;
+                return false;
+            }
+
+            let pickupInfo = "";
+
+            if (method === "自取") {
+
+                pickupInfo = "自取\n取貨日期：" + date;
+
+            } else if (method === "冷藏宅配") {
+
+                pickupInfo = "冷藏宅配\n取貨日期：" + date + "\n地址：" + address;
+
+            } else {
+
+                pickupInfo = "7-11店到店\n門市：" + store + "\n取貨日期：" + date;
+            }
+
+            pickupInfoField.value = pickupInfo;
+
+            let summary = "";
+
+            if (tiramisu.value > 0) summary += "提拉米蘇 x" + tiramisu.value + "\n";
+            if (basque_slice.value > 0) summary += "巴斯克切片 x" + basque_slice.value + "\n";
+            if (basque_whole.value > 0) summary += "巴斯克6吋 x" + basque_whole.value + "\n";
+            if (lemon_slice.value > 0) summary += "檸檬切片 x" + lemon_slice.value + "\n";
+            if (lemon_whole.value > 0) summary += "檸檬整條 x" + lemon_whole.value + "\n";
+
+            summary += "\n訂單總額：" + currentFinal;
+
+            summaryField.value = summary;
+            subtotalField.value = currentSubtotal;
+            discountField.value = currentDiscounted;
+            shippingField.value = currentShipping;
+            finalField.value = currentFinal;
+
+            formSubmitted = true;
+
+            return true;
+        }
+
+        function submitted() {
+
+            if (formSubmitted) {
+
+                alert("訂單已成功送出！");
+
+                document.getElementById("orderForm").reset();
+
+                formSubmitted = false;
+                isSubmitting = false;
+
+                calculate();
+            }
+        }
+
+        function openStoreMap() {
+
+            const go = confirm("即將前往 7-11 門市查詢地圖。\n查到門市後請把「門市店號」填回本頁。\n\n是否前往？\n（過久按確認時，瀏覽器會阻止彈窗出現，再次確認即可）");
+
+            if (go) {
+                window.open(
+                    "https://emap.pcsc.com.tw/",
+                    "711store",
+                    "width=900,height=700"
+                );
+            }
+        }
+
+        document.getElementById("bankAccount").addEventListener("click", function () {
+
+            navigator.clipboard.writeText(this.innerText);
+
+            let toast = document.getElementById("copyToast");
+            toast.style.opacity = "1";
+
+            setTimeout(function () {
+                toast.style.opacity = "0";
+            }, 1500);
+
+        });
+
+        calculate();
+        </script>
+</body>
+</html>
