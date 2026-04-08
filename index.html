@@ -429,17 +429,13 @@
                 return false;
             }
 
-            if (
-                Number(tiramisu.value) === 0 &&
-                Number(basque_slice.value) === 0 &&
-                Number(basque_whole.value) === 0 &&
-                Number(lemon_slice.value) === 0 &&
-                Number(lemon_whole.value) === 0
-            ) {
-                alert("請至少選擇一項商品");
-                isSubmitting = false;
-                return false;
-            }
+            let inputs = [tiramisu, basque_slice, basque_whole, lemon_slice, lemon_whole];
+                inputs.forEach(input => {
+                    if (input.value === "" || input.value < 0) {
+                        input.value = 0;
+                    }
+                }
+            );
 
             let pickupInfo = "";
 
@@ -457,6 +453,18 @@
             }
 
             pickupInfoField.value = pickupInfo;
+
+            if (
+                Number(tiramisu.value) === 0 &&
+                Number(basque_slice.value) === 0 &&
+                Number(basque_whole.value) === 0 &&
+                Number(lemon_slice.value) === 0 &&
+                Number(lemon_whole.value) === 0
+            ) {
+                alert("請至少選擇一項商品");
+                isSubmitting = false;
+                return false;
+            }
 
             let summary = "";
 
