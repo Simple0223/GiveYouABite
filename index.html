@@ -99,6 +99,24 @@
             margin: 0 auto;
         }
 
+        .store-btn{
+            margin-top:10px;
+            padding:10px 14px;
+            border-radius:10px;
+            border:1px solid #d1ae79;
+            background:white;
+            color:#8b5e3c;
+            font-size:14px;
+            cursor:pointer;
+            transition:0.25s;
+        }
+
+        .store-btn:hover{
+            background:#d1ae79;
+            color:white;
+            transform:translateY(-1px);
+        }
+
         /* 平板 (≥768px) */
         @media (min-width: 768px) {
             .logo {
@@ -226,10 +244,10 @@
             <div id="sevenBlock" style="display:none; margin-top:15px;">
 
                 7-11門市
-                <input type="text" id="sevenStore" placeholder="請選擇門市" readonly>
+                <input type="text" id="sevenStore" placeholder="請填寫門市名稱或店號">
 
-                <button type="button" onclick="openStoreMap()">
-                    選擇7-11門市
+                <button type="button" class="store-btn" onclick="openStoreMap()">
+                    🔍 搜尋 7-11 門市
                 </button>
 
             </div>
@@ -239,7 +257,9 @@
         <div class="section total-box">
             原價：NT$ <span id="subtotal">0</span><br>
             折扣後：NT$ <span id="discounted">0</span><br>
-            運費：NT$ <span id="shipping">0</span><br>
+            <div id="shippingRow">
+                運費：NT$ <span id="shipping">0</span><br>
+            </div>
             <strong>應付總額：NT$ <span id="final">0</span></strong>
         </div>
 
@@ -339,6 +359,7 @@
             const method = document.getElementById("pickupMethod").value;
             const addressBlock = document.getElementById("addressBlock");
             const sevenBlock = document.getElementById("sevenBlock");
+            const shippingRow = document.getElementById("shippingRow");
 
             currentShipping = 0;
 
@@ -346,20 +367,26 @@
 
                 addressBlock.style.display = "block";
                 sevenBlock.style.display = "none";
+                shippingRow.style.display = "block";
 
-                currentShipping = currentDiscounted >= 1000 ? 0 : 80;
+                if (currentSubtotal > 0) {
+                    currentShipping = currentDiscounted >= 1000 ? 0 : 80;
+                }
 
             } else if (method === "7-11店到店") {
 
                 addressBlock.style.display = "none";
                 sevenBlock.style.display = "block";
+                shippingRow.style.display = "block";
 
-                currentShipping = currentDiscounted >= 1000 ? 0 : 60;
-
+            if (currentSubtotal > 0) {
+                    currentShipping = currentDiscounted >= 1000 ? 0 : 60;
+                }
             } else {
 
                 addressBlock.style.display = "none";
                 sevenBlock.style.display = "none";
+                shippingRow.style.display = "none";
             }
 
             currentFinal = currentDiscounted + currentShipping;
@@ -468,13 +495,15 @@
 
         function openStoreMap() {
 
-            window.open(
-                "https://emap.pcsc.com.tw/",
-                "711store",
-                "width=800,height=600"
-            );
+            const go = confirm("即將前往 7-11 門市查詢地圖。\n查到門市後請把「門市店號」填回本頁。\n\n是否前往？\n（過久按確認時，瀏覽器會阻止彈窗出現，再次確認即可）");
 
-            alert("請在新視窗查詢門市，並將門市名稱填回本頁。");
+            if (go) {
+                window.open(
+                    "https://emap.pcsc.com.tw/",
+                    "711store",
+                    "width=900,height=700"
+                );
+            }
         }
 
         document.getElementById("bankAccount").addEventListener("click", function () {
