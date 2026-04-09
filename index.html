@@ -193,8 +193,8 @@
           onsubmit="return prepareSubmit();">
 
         <iframe name="hidden_iframe"
-                style="display:none;"
-                onload="submitted()"></iframe>
+                id="hidden_iframe"
+                style="display:none;"></iframe>
 
         <div class="section">
             <h3>
@@ -371,6 +371,7 @@
     </form>
 
     <script>
+        document.getElementById("hidden_iframe").onload = submitted;
         let isSubmitting = false;
         let currentSubtotal = 0;
         let currentDiscounted = 0;
@@ -486,7 +487,13 @@
                 return false;
             }
 
-            let inputs = [tiramisu, basque_slice, basque_whole, lemon_slice, lemon_whole];
+            let inputs = [
+                document.getElementById("tiramisu"),
+                document.getElementById("basque_slice"),
+                document.getElementById("basque_whole"),
+                document.getElementById("lemon_slice"),
+                document.getElementById("lemon_whole")
+            ];
                 inputs.forEach(input => {
                     if (input.value === "" || input.value < 0) {
                         input.value = 0;
@@ -548,7 +555,7 @@
 
             if (formSubmitted) {
 
-                alert("訂單已成功送出！");
+                alert("訂單已成功送出！請記得完成匯款");
 
                 document.getElementById("orderForm").reset();
 
