@@ -285,8 +285,8 @@
           onsubmit="return prepareSubmit();">
 
         <iframe name="hidden_iframe"
-                style="display:none;"
-                onload="submitted()"></iframe>
+                id="hidden_iframe"
+                style="display:none;"></iframe>
 
         <div class="section">
             <h3>
@@ -517,6 +517,7 @@
     </form>
 
     <script>
+        document.getElementById("hidden_iframe").onload = submitted;
         let isSubmitting = false;
         let currentSubtotal = 0;
 
@@ -639,7 +640,17 @@
 
             calculate();
 
-            let inputs = [mom_basque_slice, mom_basque_slice_piece, mom_tiramisu, mom_tiramisu_smell, tiramisu, tiramisu_smell, basque_slice, basque_whole_smell, basque_whole];
+            let inputs = [
+                document.getElementById("mom_basque_slice"),
+                document.getElementById("mom_basque_slice_piece"),
+                document.getElementById("mom_tiramisu"),
+                document.getElementById("mom_tiramisu_smell"),
+                document.getElementById("tiramisu"),
+                document.getElementById("tiramisu_smell"),
+                document.getElementById("basque_slice"),
+                document.getElementById("basque_whole_smell"),
+                document.getElementById("basque_whole")
+            ];
             inputs.forEach(input => {
                 if (input.value === "" || input.value < 0) {
                     input.value = 0;
@@ -706,7 +717,7 @@
 
             if (formSubmitted) {
 
-                alert("訂單已成功送出！");
+                alert("訂單已成功送出！請記得完成匯款");
 
                 document.getElementById("orderForm").reset();
 
