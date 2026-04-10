@@ -567,6 +567,7 @@
         function showTimes(location){
 
             selectedLocation = location;
+            document.getElementById("pickupTime").value = null;
 
             let times = location === "A" ? locationATimes : locationBTimes;
 
@@ -640,6 +641,16 @@
 
             calculate();
 
+            const locationRadio = document.querySelector('input[name="pickupLocation"]:checked');
+            const location = locationRadio ? locationRadio.value : "";
+            const time = document.getElementById("pickupTime").value;
+
+            if (!location || !time) {
+                alert("取貨地點與時間未填寫完成");
+                isSubmitting = false;
+                return false;
+            }
+
             let inputs = [
                 document.getElementById("mom_basque_slice"),
                 document.getElementById("mom_basque_slice_piece"),
@@ -669,16 +680,6 @@
                 Number(basque_whole.value) === 0
             ) {
                 alert("請至少選擇一項商品");
-                isSubmitting = false;
-                return false;
-            }
-
-            const locationRadio = document.querySelector('input[name="pickupLocation"]:checked');
-            const location = locationRadio ? locationRadio.value : "";
-            const time = document.getElementById("pickupTime").value;
-
-            if (!location || !time) {
-                alert("取貨地點與時間未填寫完成");
                 isSubmitting = false;
                 return false;
             }
@@ -720,6 +721,7 @@
                 alert("訂單已成功送出！請記得完成匯款");
 
                 document.getElementById("orderForm").reset();
+                document.getElementById("timeBlock").style.display = "none";
 
                 formSubmitted = false;
                 isSubmitting = false;
