@@ -299,14 +299,6 @@
                 <input type="number" id="mom_basque_slice" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();">
                 <button type="button" class="qty-btn" onclick="changeQty('mom_basque_slice', 1)">＋</button>
             </div>
-            <br>
-            購買數量(NT$140 / 片)：
-            <div class="quantity-box">
-                <button type="button" class="qty-btn" onclick="changeQty('mom_basque_slice_piece', -1)">−</button>
-                <input type="number" id="mom_basque_slice_piece" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();">
-                <button type="button" class="qty-btn" onclick="changeQty('mom_basque_slice_piece', 1)">＋</button>
-            </div>
-            <br>
             <strong>伯爵鮮果巴斯克</strong><br>
             <strong>頂層</strong>｜繽紛鮮果：<br>嚴選清甜麝香葡萄與藍莓，堆疊出珠寶盒般的華麗視覺，最後撒上如雪花般的輕盈糖粉。<br>
 
@@ -430,7 +422,7 @@
             <strong>🏡 取貨方式</strong><br>
             本次以 <strong>5/8 面交取貨</strong> 為主，時間地點如下：<br>
             📍 12:00~17:00 -- 臺北市中山區中原街3號1樓<br>
-            📍 18:00~22:00 -- 台北市中山區植福路170號（夏凱納糧堂）<br>
+            📍 18:00~22:00 -- 台北市中山區植福路170號（夏凱納靈糧堂）<br>
             <br>
             ⚠️ 請準時取貨，以確保甜點最佳風味與品質<br>
             ⸻<br>
@@ -476,7 +468,7 @@
 
             <label class="location-option">
             <input type="radio" name="pickupLocation" value="夏凱納靈糧堂" onclick="showTimes('B')">
-            夏凱納糧堂
+            夏凱納靈糧堂
             </label>
 
             </div>
@@ -608,7 +600,6 @@
         function calculate() {
 
             const momBasqueSliceVal = Number(document.getElementById("mom_basque_slice").value) || 0;
-            const momBasqueSlicePieceVal = Number(document.getElementById("mom_basque_slice_piece").value) || 0;
             const momTiramisuVal = Number(document.getElementById("mom_tiramisu").value) || 0;
             const momTiramisuSmellVal = Number(document.getElementById("mom_tiramisu_smell").value) || 0;
             const tiramisuVal = Number(document.getElementById("tiramisu").value) || 0;
@@ -653,7 +644,6 @@
 
             let inputs = [
                 document.getElementById("mom_basque_slice"),
-                document.getElementById("mom_basque_slice_piece"),
                 document.getElementById("mom_tiramisu"),
                 document.getElementById("mom_tiramisu_smell"),
                 document.getElementById("tiramisu"),
@@ -670,7 +660,6 @@
 
             if (
                 Number(mom_basque_slice.value) === 0 &&
-                Number(mom_basque_slice_piece.value) === 0 &&
                 Number(mom_tiramisu.value) === 0 &&
                 Number(mom_tiramisu_smell.value) === 0 &&
                 Number(tiramisu.value) === 0 &&
@@ -690,8 +679,7 @@
 
             let summary = "";
 
-            if (mom_basque_slice.value > 0) summary += "伯爵鮮果巴斯克6吋 x" + mom_basque_slice.value + "\n";
-            if (mom_basque_slice_piece.value > 0) summary += "伯爵鮮果巴斯克切片 x" + mom_basque_slice_piece.value + "\n";
+            if (mom_basque_slice.value > 0) summary += "伯爵鮮果巴斯克 x" + mom_basque_slice.value + "\n";
             if (mom_tiramisu.value > 0) summary += "藍莓伯爵提拉米蘇350g x" + mom_tiramisu.value + "\n";
             if (mom_tiramisu_smell.value > 0) summary += "藍莓伯爵提拉米蘇150g x" + mom_tiramisu_smell.value + "\n";
             if (tiramisu.value > 0) summary += "提拉米蘇350g x" + tiramisu.value + "\n";
