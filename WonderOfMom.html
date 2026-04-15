@@ -389,6 +389,63 @@
             原料｜Cream Cheese、有機紅糖、有機蛋、鮮奶油、酸奶、低筋麵粉
         </div>
 
+        <div class="section">
+            <h3>
+                🍪手工餅乾
+            </h3>
+            📋每包100g，約9~11片
+            <br>
+            <br>
+            <strong>原味奶油</strong><br>
+            淡淡奶油香，外酥內軟剛剛好的口感，是每天都想來一口的經典。
+            <br>
+            購買數量(NT$100 / 包)：
+            <div class="quantity-box">
+                <button type="button" class="qty-btn" onclick="changeQty('cookie', -1)">−</button>
+                <input type="number" id="cookie" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();">
+                <button type="button" class="qty-btn" onclick="changeQty('cookie', 1)">＋</button>
+            </div>
+            原料｜無鹽奶油、低筋麵粉、有機雞蛋、有機紅糖
+            <br>
+            -------------------------<br>
+            <br>
+            <strong>蔓越莓</strong><br>
+            蔓越莓的微酸，平衡餅乾的香甜，清爽又有層次。
+            <br>
+            購買數量(NT$100 / 包)：
+            <div class="quantity-box">
+                <button type="button" class="qty-btn" onclick="changeQty('cranberry_cookie', -1)">−</button>
+                <input type="number" id="cranberry_cookie" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();">
+                <button type="button" class="qty-btn" onclick="changeQty('cranberry_cookie', 1)">＋</button>
+            </div>
+            原料｜無鹽奶油、低筋麵粉、有機雞蛋、有機紅糖、蔓越莓乾
+            <br>
+            -------------------------<br>
+            <br>
+            <strong>伯爵茶</strong><br>
+            伯爵茶的細緻香氣，讓每一口都多了一點溫柔與餘韻。
+            <br>
+            購買數量(NT$100 / 包)：
+            <div class="quantity-box">
+                <button type="button" class="qty-btn" onclick="changeQty('gray_tea_cookie', -1)">−</button>
+                <input type="number" id="gray_tea_cookie" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();">
+                <button type="button" class="qty-btn" onclick="changeQty('gray_tea_cookie', 1)">＋</button>
+            </div>
+            原料｜無鹽奶油、低筋麵粉、有機雞蛋、有機紅糖、Twinings伯爵茶
+            <br>
+            -------------------------<br>
+            <br>
+            <strong>綜合口味</strong><br>
+            每個口味都想要來一點的，選這個就對了！
+            <br>
+            購買數量(NT$100 / 包)：
+            <div class="quantity-box">
+                <button type="button" class="qty-btn" onclick="changeQty('all_cookie', -1)">−</button>
+                <input type="number" id="all_cookie" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();">
+                <button type="button" class="qty-btn" onclick="changeQty('all_cookie', 1)">＋</button>
+            </div>
+        </div>
+
         <div class="section total-box">
             累積金額：NT$ <span id="subtotal">0</span><br>
             <br>
@@ -598,6 +655,44 @@
             const basqueSliceVal = Number(document.getElementById("basque_slice").value) || 0;
             const basqueWholeSmellVal = Number(document.getElementById("basque_whole_smell").value) || 0;
             const basqueWholeVal = Number(document.getElementById("basque_whole").value) || 0;
+            const cookieVal = Number(document.getElementById("cookie").value) || 0;
+            const cranberryCookieVal = Number(document.getElementById("cranberry_cookie").value) || 0;
+            const grayCookieVal = Number(document.getElementById("gray_tea_cookie").value) || 0;
+            const allCookieVal = Number(document.getElementById("all_cookie").value) || 0;
+
+            let cookiesPrice = 0;
+            let cookiesCount = cookieVal + cranberryCookieVal + grayCookieVal + allCookieVal;
+            if(cookiesCount >= 6){
+                let quotient = Math.floor(cookiesCount / 6);
+                cookiesCount = cookiesCount % 6;
+                cookiesPrice += 500*quotient;
+            }
+            if(cookiesCount >= 5){
+                let quotient = Math.floor(cookiesCount / 5);
+                cookiesCount = cookiesCount % 5;
+                cookiesPrice += 460*quotient;
+            }
+            if(cookiesCount >= 4){
+                let quotient = Math.floor(cookiesCount / 4);
+                cookiesCount = cookiesCount % 4;
+                cookiesPrice += 360*quotient;
+            }
+            if(cookiesCount >= 3){
+                let quotient = Math.floor(cookiesCount / 3);
+                cookiesCount = cookiesCount % 3;
+                cookiesPrice += 260*quotient;
+            }
+            if(cookiesCount >= 2){
+                let quotient = Math.floor(cookiesCount / 2);
+                cookiesCount = cookiesCount % 2;
+                cookiesPrice += 180*quotient;
+            }
+            if(cookiesCount >= 1){
+                let quotient = Math.floor(cookiesCount / 1);
+                cookiesCount = cookiesCount % 1;
+                cookiesPrice += 100*quotient;
+            }
+            
 
             currentSubtotal =
                 (810 * momBasqueSliceVal) +
@@ -606,7 +701,8 @@
                 (180 * tiramisuSmellVal) +
                 (130 * basqueSliceVal) +
                 (480 * basqueWholeSmellVal) +
-                (680 * basqueWholeVal);
+                (680 * basqueWholeVal) +
+                cookiesPrice;
 
             const today = new Date();
             today.setHours(0, 0, 0, 0);
@@ -638,7 +734,11 @@
                 document.getElementById("tiramisu_smell"),
                 document.getElementById("basque_slice"),
                 document.getElementById("basque_whole_smell"),
-                document.getElementById("basque_whole")
+                document.getElementById("basque_whole"),
+                document.getElementById("cookie"),
+                document.getElementById("cranberry_cookie"),
+                document.getElementById("gray_tea_cookie"),
+                document.getElementById("all_cookie")
             ];
             inputs.forEach(input => {
                 if (input.value === "" || input.value < 0) {
@@ -653,7 +753,11 @@
                 Number(tiramisu_smell.value) === 0 &&
                 Number(basque_slice.value) === 0 &&
                 Number(basque_whole_smell.value) === 0 &&
-                Number(basque_whole.value) === 0
+                Number(basque_whole.value) === 0 &&
+                Number(cookie.value) === 0 &&
+                Number(cranberry_cookie.value) === 0 &&
+                Number(gray_tea_cookie.value) === 0 &&
+                Number(all_cookie.value) === 0
             ) {
                 alert("請至少選擇一項商品");
                 isSubmitting = false;
@@ -673,6 +777,10 @@
             if (basque_slice.value > 0) summary += "巴斯克切片 x" + basque_slice.value + "\n";
             if (basque_whole_smell.value > 0) summary += "巴斯克4吋 x" + basque_whole_smell.value + "\n";
             if (basque_whole.value > 0) summary += "巴斯克6吋 x" + basque_whole.value + "\n";
+            if (cookie.value > 0) summary += "原味奶油餅乾 x" + cookie.value + "\n";
+            if (cranberry_cookie.value > 0) summary += "蔓越莓餅乾 x" + cranberry_cookie.value + "\n";
+            if (gray_tea_cookie.value > 0) summary += "伯爵茶餅乾 x" + gray_tea_cookie.value + "\n";
+            if (all_cookie.value > 0) summary += "綜合餅乾 x" + all_cookie.value + "\n";
 
             summary += "\n訂單總額：" + currentSubtotal;
 
