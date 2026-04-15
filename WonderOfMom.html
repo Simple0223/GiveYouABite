@@ -322,14 +322,6 @@
                 <input type="number" id="mom_tiramisu" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();">
                 <button type="button" class="qty-btn" onclick="changeQty('mom_tiramisu', 1)">＋</button>
             </div>
-            <br>
-            購買數量(NT$200 / 150g)：
-            <div class="quantity-box">
-                <button type="button" class="qty-btn" onclick="changeQty('mom_tiramisu_smell', -1)">−</button>
-                <input type="number" id="mom_tiramisu_smell" value="0" min="0" oninput="this.value = Math.max(0, this.value); calculate();">
-                <button type="button" class="qty-btn" onclick="changeQty('mom_tiramisu_smell', 1)">＋</button>
-            </div>
-            <br>
             <strong>藍莓伯爵提拉米蘇</strong><br>
             <strong>頂層</strong>｜經典紫黑：<br>醇厚濃郁的可可粉及藍莓點綴，展現出最高雅的配色。<br>
 
@@ -601,7 +593,6 @@
 
             const momBasqueSliceVal = Number(document.getElementById("mom_basque_slice").value) || 0;
             const momTiramisuVal = Number(document.getElementById("mom_tiramisu").value) || 0;
-            const momTiramisuSmellVal = Number(document.getElementById("mom_tiramisu_smell").value) || 0;
             const tiramisuVal = Number(document.getElementById("tiramisu").value) || 0;
             const tiramisuSmellVal = Number(document.getElementById("tiramisu_smell").value) || 0;
             const basqueSliceVal = Number(document.getElementById("basque_slice").value) || 0;
@@ -611,7 +602,6 @@
             currentSubtotal =
                 (810 * momBasqueSliceVal) +
                 (450 * momTiramisuVal) +
-                (200 * momTiramisuSmellVal) +
                 (410 * tiramisuVal) +
                 (180 * tiramisuSmellVal) +
                 (130 * basqueSliceVal) +
@@ -644,7 +634,6 @@
             let inputs = [
                 document.getElementById("mom_basque_slice"),
                 document.getElementById("mom_tiramisu"),
-                document.getElementById("mom_tiramisu_smell"),
                 document.getElementById("tiramisu"),
                 document.getElementById("tiramisu_smell"),
                 document.getElementById("basque_slice"),
@@ -660,7 +649,6 @@
             if (
                 Number(mom_basque_slice.value) === 0 &&
                 Number(mom_tiramisu.value) === 0 &&
-                Number(mom_tiramisu_smell.value) === 0 &&
                 Number(tiramisu.value) === 0 &&
                 Number(tiramisu_smell.value) === 0 &&
                 Number(basque_slice.value) === 0 &&
@@ -680,7 +668,6 @@
 
             if (mom_basque_slice.value > 0) summary += "伯爵鮮果巴斯克 x" + mom_basque_slice.value + "\n";
             if (mom_tiramisu.value > 0) summary += "藍莓伯爵提拉米蘇350g x" + mom_tiramisu.value + "\n";
-            if (mom_tiramisu_smell.value > 0) summary += "藍莓伯爵提拉米蘇150g x" + mom_tiramisu_smell.value + "\n";
             if (tiramisu.value > 0) summary += "提拉米蘇350g x" + tiramisu.value + "\n";
             if (tiramisu_smell.value > 0) summary += "提拉米蘇150g x" + tiramisu_smell.value + "\n";
             if (basque_slice.value > 0) summary += "巴斯克切片 x" + basque_slice.value + "\n";
